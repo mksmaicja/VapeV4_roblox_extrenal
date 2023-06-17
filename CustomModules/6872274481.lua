@@ -5122,9 +5122,9 @@ runFunction(function()
 						end
 
 						if (SpeedValue == 23) then
-							SpeedValue == SpeedValue + 5
+							game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 26
 							wait(0.5)
-							SpeedValue == SpeedValue - 5
+							game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 23
 							wait(5)
 						end
 
