@@ -5090,12 +5090,6 @@ runFunction(function()
 					if damageTable.entityInstance == lplr.Character and (damageTable.damageType ~= 0 or damageTable.extra and damageTable.extra.chargeRatio ~= nil) and (not (damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.disabled or damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.horizontal == 0)) and SpeedDamageBoost.Enabled then 
 						damagetick = tick() + 0.4
 					end
-					if SpeedDamageBoost.Enabled then
-						game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 26
-						wait(0.7)
-						game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 23
-						wait(5)
-					end
 				end))
 				RunLoops:BindToHeartbeat("Speed", function(delta)
 					if GuiLibrary.ObjectsThatCanBeSaved["Lobby CheckToggle"].Api.Enabled then
