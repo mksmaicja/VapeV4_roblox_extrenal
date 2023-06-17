@@ -5090,6 +5090,12 @@ runFunction(function()
 					if damageTable.entityInstance == lplr.Character and (damageTable.damageType ~= 0 or damageTable.extra and damageTable.extra.chargeRatio ~= nil) and (not (damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.disabled or damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.horizontal == 0)) and SpeedDamageBoost.Enabled then 
 						damagetick = tick() + 0.4
 					end
+					if SpeedDamageBoost.Enabled then
+						game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 26
+						wait(0.7)
+						game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 23
+						wait(5)
+					end
 				end))
 				RunLoops:BindToHeartbeat("Speed", function(delta)
 					if GuiLibrary.ObjectsThatCanBeSaved["Lobby CheckToggle"].Api.Enabled then
@@ -5121,12 +5127,7 @@ runFunction(function()
 							entityLibrary.character.HumanoidRootPart.CFrame = entityLibrary.character.HumanoidRootPart.CFrame + speedCFrame
 						end
 
-						if (SpeedValue == 23) then
-							game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 26
-							wait(0.5)
-							game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 23
-							wait(5)
-						end
+						
 
 						if SpeedJump.Enabled and (not Scaffold.Enabled) and (SpeedJumpAlways.Enabled or killauraNearPlayer) then
 							if (entityLibrary.character.Humanoid.FloorMaterial ~= Enum.Material.Air) and entityLibrary.character.Humanoid.MoveDirection ~= Vector3.zero then
