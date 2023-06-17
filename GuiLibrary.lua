@@ -66,10 +66,10 @@ if shared.VapeExecuted then
 		["vape/assets/WorldIcon.png"] = "rbxassetid://13350796199",
 		["vape/assets/VapeIcon.png"] = "rbxassetid://13350808582",
 		["vape/assets/RenderIcon.png"] = "rbxassetid://13350832775",
-		["vape/assets/VapeLogo1.png"] = "rbxassetid://13350860863",
-		["vape/assets/VapeLogo3.png"] = "rbxassetid://13350872035",
-		["vape/assets/VapeLogo2.png"] = "rbxassetid://13350876307",
-		["vape/assets/VapeLogo4.png"] = "rbxassetid://13350877564"
+		["vape/assets/VapeLogo1.png"] = "rbxassetid://13778645768",
+		["vape/assets/VapeLogo3.png"] = "rbxassetid://13778650399",
+		["vape/assets/VapeLogo2.png"] = "rbxassetid://13778653858",
+		["vape/assets/VapeLogo4.png"] = "rbxassetid://13778656962"
 	}
 	local getcustomasset = getsynasset or getcustomasset or function(location) return vapeAssetTable[location] or "" end
 	local customassetcheck = (getsynasset or getcustomasset) and true
@@ -6946,7 +6946,9 @@ if shared.VapeExecuted then
 		if enabled then
 			--no cache but its ran 1 time so idc
 			local bad = not (inputService:GetPlatform() == Enum.Platform.Windows or inputService:GetPlatform() == Enum.Platform.OSX)
-			GuiLibrary.CreateNotification("Finished Loading", bad and "Press the button in the top right to open GUI" or "Press "..string.upper(GuiLibrary["GUIKeybind"]).." to open GUI", 5)
+			GuiLibrary.CreateNotification("VAPE EXTRENAL LOADED!", bad and "Press the button in the top right to open GUI" or "Press "..string.upper(GuiLibrary["GUIKeybind"]).." to open GUI", 5)
+			wait(6)
+			GuiLibrary.CreateNotification("by mikusdev", bad and "This version of vape is edited by mikusdev", 2)
 		end
 	end
 
