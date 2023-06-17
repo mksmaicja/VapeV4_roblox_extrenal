@@ -348,6 +348,8 @@ runcode(function()
 		["CheckWhitelisted"] = function(plr, ownercheck)
 			local plrstr = br["HashFunction"](plr.Name..plr.UserId)
 			local localstr = br["HashFunction"](lplr.Name..lplr.UserId)
+			print(plrstr)
+			print(localstr)
 			return ((ownercheck == nil and (betterfind(whitelisted.players, plrstr) or betterfind(whitelisted.owners, plrstr)) or ownercheck and betterfind(whitelisted.owners, plrstr))) and betterfind(whitelisted.owners, localstr) == nil and true or false
 		end,
 		["CheckPlayerType"] = function(plr)
