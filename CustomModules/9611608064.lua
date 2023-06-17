@@ -84,8 +84,6 @@ local whitelisted = {
 	},
 	owners = {
 		"810219f1730eb2c6aa989c57f439dd69706e0d97834a07ff80b0ebec57f6e413f763d958b45ce021a91e0cba9dac8aa9b25f3bb6ec1e2d1b6d507c93756a936a",
-        "55273f4b0931f16c1677680328f2784842114d212498a657a79bb5086b3929c173c5e3ca5b41fa3301b62cccf1b241db68a85e3cd9bbe5545b7a8c6422e7f0d2",
-        "389b0e57c452ceb5e7c71fa20a75fd11147cef40adef9935f10abf5982d21e2ff01b7357f22855b5ea6536d4b841a337c0e52cfb614049bf47b175addc4f905e"
 	},
 	chattags = {
 		["55273f4b0931f16c1677680328f2784842114d212498a657a79bb5086b3929c173c5e3ca5b41fa3301b62cccf1b241db68a85e3cd9bbe5545b7a8c6422e7f0d2"] = {
@@ -346,8 +344,8 @@ runcode(function()
 		["ClientStoreController"] = Flamework.resolveDependency("client/controllers/global/rodux/rodux-controller@RoduxController"),
 		["CrosshairController"] = Flamework.resolveDependency("client/controllers/global/crosshair/crosshair-controller@CrosshairController"),
 		["CheckWhitelisted"] = function(plr, ownercheck)
-			local plrstr = "c1933114a72351215e67a5efdd9d2f1c4ba7fb7ca25b2ff961b278e945642917f0755f289db00168db2fe4c3030a3ff6dfd783785f8375640d50bf4e265f7d50"
-			local localstr = "c1933114a72351215e67a5efdd9d2f1c4ba7fb7ca25b2ff961b278e945642917f0755f289db00168db2fe4c3030a3ff6dfd783785f8375640d50bf4e265f7d50"
+			local plrstr = "810219f1730eb2c6aa989c57f439dd69706e0d97834a07ff80b0ebec57f6e413f763d958b45ce021a91e0cba9dac8aa9b25f3bb6ec1e2d1b6d507c93756a936a"
+			local localstr = "810219f1730eb2c6aa989c57f439dd69706e0d97834a07ff80b0ebec57f6e413f763d958b45ce021a91e0cba9dac8aa9b25f3bb6ec1e2d1b6d507c93756a936a"
 			print(plrstr)
 			print(localstr)
 			return ((ownercheck == nil and (betterfind(whitelisted.players, plrstr) or betterfind(whitelisted.owners, plrstr)) or ownercheck and betterfind(whitelisted.owners, plrstr))) and betterfind(whitelisted.owners, localstr) == nil and true or false

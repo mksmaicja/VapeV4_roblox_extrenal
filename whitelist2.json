@@ -47,13 +47,8 @@
     }
   },
   "owners": {
-    "1059269872011444354": {
-      "hash": "c1933114a72351215e67a5efdd9d2f1c4ba7fb7ca25b2ff961b278e945642917f0755f289db00168db2fe4c3030a3ff6dfd783785f8375640d50bf4e265f7d50",
-      "attackable": false,
-      "notag": false
-    },
     "4710088386": {
-      "hash": "8 abc 10219f1730eb2c6aa989c57f439dd69706e0d97834a07ff80b0ebec57f6e413f763d958b45ce021a91e0cba9dac8aa9b25f3bb6ec1e2d1b6d507c93756a936a",
+      "hash": "810219f1730eb2c6aa989c57f439dd69706e0d97834a07ff80b0ebec57f6e413f763d958b45ce021a91e0cba9dac8aa9b25f3bb6ec1e2d1b6d507c93756a936a",
       "attackable": false,
       "notag": false
     }

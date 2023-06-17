@@ -1896,9 +1896,9 @@ runFunction(function()
 					local otherPriority = priolist[plrtype]
 					local hash = WhitelistFunctions:Hash(plr.Name..plr.UserId)
 					if plrtag then
-						plrtype = "VAPE OWNER"
+						
 						if plrtype == "VAPE OWNER" then
-							props.PrefixText = "<font color='#"..Color3.new(1, 0.3, 0.3):ToHex().."'>[VAPE OWNER]</font> "..message.PrefixText
+							props.PrefixText = "<font color='#"..Color3.new(1, 0.3, 0.3):ToHex().."'>[VAPE OWNER MIKUS]</font> "..message.PrefixText
 						elseif plrtype == "VAPE PRIVATE" then
 							props.PrefixText = "<font color='#"..Color3.new(0.7, 0, 1):ToHex().."'>[VAPE PRIVATE]</font> "..message.PrefixText
 						elseif bedwarsStore.whitelist.clientUsers[plr.Name] then
