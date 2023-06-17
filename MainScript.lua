@@ -81,8 +81,8 @@ local vapeAssetTable = {
 	["vape/assets/VapeIcon.png"] = "rbxassetid://13350808582",
 	["vape/assets/RenderIcon.png"] = "rbxassetid://13350832775",
 	["vape/assets/VapeLogo1.png"] = "rbxassetid://13778645768",
-	["vape/assets/VapeLogo3.png"] = "rbxassetid://13778650399",
-	["vape/assets/VapeLogo2.png"] = "rbxassetid://13778653858",
+	["vape/assets/VapeLogo2.png"] = "rbxassetid://13778650399",
+	["vape/assets/VapeLogo3.png"] = "rbxassetid://13778653858",
 	["vape/assets/VapeLogo4.png"] = "rbxassetid://13778656962"
 }
 if inputService:GetPlatform() ~= Enum.Platform.Windows then 
