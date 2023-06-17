@@ -10043,7 +10043,7 @@ runFunction(function()
 					block.Parent = gameCamera
 					controlmodule.moveFunction = function(Self, vec, facecam, ...)
 						if entityLibrary.isAlive then
-							local plr = AllNearPosition(TargetStrafeRange.Value + 5, 10)[1]
+							local plr = AllNearPosition(TargetStrafeRange.Value + 5, 20)[1]
 							plr = plr and (not workspace:Raycast(entityLibrary.character.HumanoidRootPart.Position, (plr.RootPart.Position - entityLibrary.character.HumanoidRootPart.Position), bedwarsStore.blockRaycast)) and workspace:Raycast(plr.RootPart.Position, Vector3.new(0, -70, 0), bedwarsStore.blockRaycast) and plr or nil
 							if plr ~= oldplr then
 								if plr then
