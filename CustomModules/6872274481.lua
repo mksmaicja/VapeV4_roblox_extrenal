@@ -5121,6 +5121,13 @@ runFunction(function()
 							entityLibrary.character.HumanoidRootPart.CFrame = entityLibrary.character.HumanoidRootPart.CFrame + speedCFrame
 						end
 
+						if (SpeedValue == 23) then
+							SpeedValue == SpeedValue + 5
+							wait(0.5)
+							SpeedValue == SpeedValue - 5
+							wait(5)
+						end
+
 						if SpeedJump.Enabled and (not Scaffold.Enabled) and (SpeedJumpAlways.Enabled or killauraNearPlayer) then
 							if (entityLibrary.character.Humanoid.FloorMaterial ~= Enum.Material.Air) and entityLibrary.character.Humanoid.MoveDirection ~= Vector3.zero then
 								if SpeedJumpSound.Enabled then 
@@ -10043,7 +10050,7 @@ runFunction(function()
 					block.Parent = gameCamera
 					controlmodule.moveFunction = function(Self, vec, facecam, ...)
 						if entityLibrary.isAlive then
-							local plr = AllNearPosition(TargetStrafeRange.Value + 5, 5)[1]
+							local plr = AllNearPosition(TargetStrafeRange.Value + 5, 11)[1]
 							plr = plr and (not workspace:Raycast(entityLibrary.character.HumanoidRootPart.Position, (plr.RootPart.Position - entityLibrary.character.HumanoidRootPart.Position), bedwarsStore.blockRaycast)) and workspace:Raycast(plr.RootPart.Position, Vector3.new(0, -70, 0), bedwarsStore.blockRaycast) and plr or nil
 							if plr ~= oldplr then
 								if plr then
