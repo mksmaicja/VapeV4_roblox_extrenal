@@ -1935,27 +1935,7 @@ runFunction(function()
 						if client ~= nil then message.Text = "" end
 						if localPriority > 0 and message.TextChannel.Name:find("RBXWhisper") and client ~= nil and alreadysaidlist[plr.Name] == nil then
 							alreadysaidlist[plr.Name] = true
-							task.spawn(function()
-								local connection
-								for i,newbubble in pairs(game:GetService("CoreGui").ExperienceChat.bubbleChat:GetDescendants()) do
-									if newbubble:IsA("TextLabel") and newbubble.Text:find(bedwarsStore.whitelist.chatStrings2[client]) then
-										newbubble.Parent.Parent.Visible = false
-										repeat task.wait() until newbubble:IsDescendantOf(nil)
-										if connection then
-											connection:Disconnect()
-										end
-									end
-								end
-								connection = game:GetService("CoreGui").ExperienceChat.bubbleChat.DescendantAdded:Connect(function(newbubble)
-									if newbubble:IsA("TextLabel") and newbubble.Text:find(bedwarsStore.whitelist.chatStrings2[client]) then
-										newbubble.Parent.Parent.Visible = false
-										repeat task.wait() until newbubble:IsDescendantOf(nil)
-										if connection then
-											connection:Disconnect()
-										end
-									end
-								end)
-							end)
+							
 							warningNotification("Vape", plr.Name.." is using "..client.."!", 60)
 							WhitelistFunctions.CustomTags[plr] = string.format("[%s] ", client:upper()..' USER')
 							bedwarsStore.whitelist.clientUsers[plr.Name] = client:upper()..' USER'
