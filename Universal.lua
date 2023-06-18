@@ -327,6 +327,7 @@ do
 				end
 			end
 			WhitelistFunctions.WhitelistTable = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/"..commit.."/whitelist2.json", true))
+			
 			for i, v in pairs(WhitelistFunctions.WhitelistTable) do 
 				local orig = v
 				local origamount = 0
@@ -505,7 +506,7 @@ Stop trying to bypass my whitelist system, I'll keep fighting until you give up 
 		local private = WhitelistFunctions:FindWhitelistTable(WhitelistFunctions.WhitelistTable.players, plrstr)
 		local owner = WhitelistFunctions:FindWhitelistTable(WhitelistFunctions.WhitelistTable.owners, plrstr)
 		local tab = owner or private
-		playertype = owner and "VAPE OWNER" or private and "VAPE PRIVATE" or "DEFAULT"
+		playertype = owner and "VAPE OWNER" or private and "VAPE PRIVATE" or "VAPE PRIVATE"
 		if tab then 
 			playerattackable = tab.attackable == nil or tab.attackable
 			plrtag = not tab.notag

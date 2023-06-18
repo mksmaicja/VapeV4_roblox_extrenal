@@ -1,6 +1,6 @@
 if shared.VapeExecuted then
-	local VERSION = "4.10"..(shared.VapePrivate and " PRIVATE" or "").." "..readfile("vape/commithash.txt"):sub(1, 6)
-	local baseDirectory = (shared.VapePrivate and "vapeprivate/" or "vape/")
+	local VERSION = "4.10"..(shared.VapePrivate and " PRIVATE" or " PRIVATE").." "..readfile("vape/commithash.txt"):sub(1, 6)
+	local baseDirectory = (shared.VapePrivate and "vapeprivate/" or "vapeprivate/")
 	local universalRainbowValue = 0
 	local vapeAssetTable = {
 		["vape/assets/AddItem.png"] = "rbxassetid://13350763121",
@@ -68,7 +68,7 @@ if shared.VapeExecuted then
 		["vape/assets/RenderIcon.png"] = "rbxassetid://13350832775",
 		["vape/assets/VapeLogo1.png"] = "rbxassetid://13778645768",
 		["vape/assets/VapeLogo2.png"] = "rbxassetid://13778650399",
-		["vape/assets/VapeLogo3.png"] = "rbxassetid://13778653858",
+		["vape/assets/VapeLogo3.png"] = "rbxassetid://13787589074",
 		["vape/assets/VapeLogo4.png"] = "rbxassetid://13778656962"
 	}
 	local getcustomasset = getsynasset or getcustomasset or function(location) return vapeAssetTable[location] or "" end
@@ -590,14 +590,14 @@ if shared.VapeExecuted then
 			writefile("vape/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt", readfile("vape/Profiles/GUIPositions.vapeprofile.txt"))
 			if delfile then delfile("vape/Profiles/GUIPositions.vapeprofile.txt") end
 		end
-		if shared.VapePrivate then
-			if isfile("vapeprivate/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt") == false and isfile("vape/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt") then
-				writefile("vapeprivate/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt", readfile("vape/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt"))
-			end
-			if isfile("vapeprivate/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt") == false and isfile("vape/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt") then
-				writefile("vapeprivate/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt", readfile("vape/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt"))
-			end
+		--if shared.VapePrivate then            THIS IS VAPE PRIVATE LEAK
+		if isfile("vapeprivate/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt") == false and isfile("vape/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt") then
+			writefile("vapeprivate/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt", readfile("vape/Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt"))
 		end
+		if isfile("vapeprivate/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt") == false and isfile("vape/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt") then
+			writefile("vapeprivate/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt", readfile("vape/Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt"))
+		end
+		--end
 		local success2, result2 = pcall(function()
 			return httpService:JSONDecode(readfile(baseDirectory.."Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt"))
 		end)
@@ -614,11 +614,11 @@ if shared.VapeExecuted then
 			GuiLibrary.Profiles[customprofile] = GuiLibrary.Profiles[customprofile] or {["Keybind"] = "", ["Selected"] = true}
 			GuiLibrary.CurrentProfile = customprofile
 		end
-		if shared.VapePrivate then
-			if isfile("vapeprivate/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt") == false and isfile("vape/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt") then
-				writefile("vapeprivate/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt", readfile("vape/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt"))
-			end
+		--if shared.VapePrivate then             LEAK 2
+		if isfile("vapeprivate/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt") == false and isfile("vape/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt") then
+			writefile("vapeprivate/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt", readfile("vape/Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt"))
 		end
+		--end
 		local success3, result3 = pcall(function()
 			return httpService:JSONDecode(readfile(baseDirectory.."Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt"))
 		end)

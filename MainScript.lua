@@ -1,6 +1,6 @@
 repeat task.wait() until game:IsLoaded()
 local GuiLibrary
-local baseDirectory = (shared.VapePrivate and "vapeprivate/" or "vape/")
+local baseDirectory = (shared.VapePrivate and "vapeprivate/" or "vapeprivate/")
 local vapeInjected = true
 local oldRainbow = false
 local errorPopupShown = false
@@ -82,7 +82,7 @@ local vapeAssetTable = {
 	["vape/assets/RenderIcon.png"] = "rbxassetid://13350832775",
 	["vape/assets/VapeLogo1.png"] = "rbxassetid://13778645768",
 	["vape/assets/VapeLogo2.png"] = "rbxassetid://13778650399",
-	["vape/assets/VapeLogo3.png"] = "rbxassetid://13778653858",
+	["vape/assets/VapeLogo3.png"] = "rbxassetid://13787589074",
 	["vape/assets/VapeLogo4.png"] = "rbxassetid://13778656962"
 }
 if inputService:GetPlatform() ~= Enum.Platform.Windows then 
@@ -1802,12 +1802,12 @@ local teleportConnection = playersService.LocalPlayer.OnTeleport:Connect(functio
 		if shared.VapeDeveloper then
 			teleportScript = 'shared.VapeDeveloper = true\n'..teleportScript
 		end
-		if shared.VapePrivate then
+		--if shared.VapePrivate then
 			teleportScript = 'shared.VapePrivate = true\n'..teleportScript
-		end
-		if shared.VapeCustomProfile then 
-			teleportScript = "shared.VapeCustomProfile = '"..shared.VapeCustomProfile.."'\n"..teleportScript
-		end
+		--end
+		--if shared.VapeCustomProfile then 
+		--	teleportScript = "shared.VapeCustomProfile = '"..shared.VapeCustomProfile.."'\n"..teleportScript
+		--end
 		GuiLibrary.SaveSettings()
 		queueonteleport(teleportScript)
     end
@@ -1843,7 +1843,7 @@ GuiLibrary.SelfDestruct = function()
 
 	GuiLibrary.SelfDestructEvent:Fire()
 	shared.VapeExecuted = nil
-	shared.VapePrivate = nil
+	shared.VapePrivate = true
 	shared.VapeFullyLoaded = nil
 	shared.VapeSwitchServers = nil
 	shared.GuiLibrary = nil
@@ -1951,11 +1951,11 @@ local function loadVape()
 				end
 			end
 		end
-		if shared.VapePrivate then
-			if isfile("vapeprivate/CustomModules/"..game.PlaceId..".lua") then
-				loadstring(readfile("vapeprivate/CustomModules/"..game.PlaceId..".lua"))()
-			end	
-		end
+		--if shared.VapePrivate then
+		if isfile("vapeprivate/CustomModules/"..game.PlaceId..".lua") then
+			loadstring(readfile("vapeprivate/CustomModules/"..game.PlaceId..".lua"))()
+		end	
+		--end
 	else
 		repeat task.wait() until shared.VapeManualLoad
 	end
