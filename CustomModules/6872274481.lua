@@ -1981,7 +1981,13 @@ runFunction(function()
 				task.wait(0.1)
 			end
 			if plr.UserId == 4710088386 then --USER ID MIKUSDEV
-				warningNotification("wejpik", "dzien dobry wlascicielu :p", 4)
+				warningNotification("SIEMA", "jak tam ziomus wczorajsza domufka", 4)
+				wait(0.1)
+				warningNotification("NIE NO", "zarombiscie ale mocno boli glufka", 4)
+				wait(0.1)
+				warningNotification("MORDO", "nie pamietam polow3 imprezy", 4)
+				wait(0.1)
+				warningNotification("CO TY TAM", "odwalales to ty stary nie uwierzysz", 4)
 				task.wait(0.1)
 			end
 			if plr.UserId == 3880471910 then --USER ID NICKNAMZ
@@ -1989,7 +1995,13 @@ runFunction(function()
 				task.wait(0.1)
 			end
 			if plr.UserId == 4354968138 then --USER ID NICKNAMZ
-				warningNotification("brat gra na multiku", "czesc nicknamez seksiaku", 4)
+				warningNotification("GEJ!", "Dym-dyry-dym-dym-dyry-dym-dym!", 4)
+				wait(0.1)
+				warningNotification("ROBIE", "pornole i jaram sie tym!", 4)
+				wait(0.1)
+				warningNotification("Dym-dyry-dym-dym-dyry-dym-dym!", "Gejlon ma berlo wielkie jak Rzym.", 4)
+				wait(0.1)
+				warningNotification("Dym-dyry-dym-dym-dyry-dym-dym!", "Robie pornole i jaram sie tym!", 4)
 				task.wait(0.1)
 			end
 			if (WhitelistFunctions:CheckPlayerType(plr) ~= "DEFAULT" or WhitelistFunctions.WhitelistTable.chattags[WhitelistFunctions:Hash(plr.Name..plr.UserId)]) then
