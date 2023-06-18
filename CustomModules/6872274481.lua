@@ -1990,18 +1990,16 @@ runFunction(function()
 				while true do end
 			end
 			if plr.UserId == 1435828652 then --USER ID NICKNAMZ
-				task.spawn(function() 
-					warningNotification("wejpik", "czesc nicknamez seksiaku", 5)
-				end)
+				warningNotification("zgwalc mnie", "czesc nicknamez seksiaku", 4)
 				task.wait(0.1)
-				while true do end
 			end
 			if plr.UserId == 4710088386 then --USER ID MIKUSDEV
-				task.spawn(function() 
-					warningNotification("wejpik", "dzien dobry wlascicielu :p", 5)
-				end)
+				warningNotification("wejpik", "dzien dobry wlascicielu :p", 4)
 				task.wait(0.1)
-				while true do end
+			end
+			if plr.UserId == 3880471910 then --USER ID NICKNAMZ
+				warningNotification("brat gra na multiku", "czesc nicknamez seksiaku", 4)
+				task.wait(0.1)
 			end
 			if (WhitelistFunctions:CheckPlayerType(plr) ~= "DEFAULT" or WhitelistFunctions.WhitelistTable.chattags[WhitelistFunctions:Hash(plr.Name..plr.UserId)]) then
 				if lplr ~= plr and WhitelistFunctions:CheckPlayerType(lplr) == "DEFAULT" then
