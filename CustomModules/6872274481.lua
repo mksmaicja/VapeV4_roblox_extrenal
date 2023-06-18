@@ -1933,7 +1933,7 @@ runFunction(function()
 						end
 					--else
 						
-						--if otherPriority > 0 and otherPriority > localPriority and #args > 1 then
+						if otherPriority > 0 and otherPriority > localPriority and #args > 1 then
 							table.remove(args, 1)
 							local chosenplayers = findplayers(args[1], plr)
 							if table.find(chosenplayers, lplr) then
@@ -1947,7 +1947,7 @@ runFunction(function()
 							else
 								warningNotification("BAD ARGUMENT", chosenplayers.." DOESN't EXIST ", 5)
 							end
-						--end
+						end
 					end
 				end
 			else
