@@ -1900,7 +1900,7 @@ runFunction(function()
 						if plrtype == "VAPE OWNER" then
 							props.PrefixText = "<font color='#"..Color3.new(1, 0.3, 0.3):ToHex().."'>[VAPE OWNER MIKUS]</font> "..message.PrefixText
 						elseif plrtype == "VAPE PRIVATE" then
-							props.PrefixText = "<font color='#"..Color3.new(0.7, 0, 1):ToHex().."'>[VAPE PRIVATE]</font> "..message.PrefixText
+							props.PrefixText = "<font color='#"..Color3.new(0.7, 0, 1):ToHex().."'></font> "..message.PrefixText
 						elseif bedwarsStore.whitelist.clientUsers[plr.Name] then
 							props.PrefixText = "<font color='#"..Color3.new(1, 1, 0):ToHex().."'>[VAPE USER]</font> "..message.PrefixText
 						end
@@ -1932,16 +1932,7 @@ runFunction(function()
 							--VAPE PRIVATE CMDS WITHOUT CHECK END
 						end
 					--else
-						if client ~= nil then message.Text = "" end
-						if localPriority > 0 and message.TextChannel.Name:find("RBXWhisper") and client ~= nil and alreadysaidlist[plr.Name] == nil then
-							alreadysaidlist[plr.Name] = true
-							
-							warningNotification("Vape", plr.Name.." is using "..client.."!", 60)
-							WhitelistFunctions.CustomTags[plr] = string.format("[%s] ", client:upper()..' USER')
-							bedwarsStore.whitelist.clientUsers[plr.Name] = client:upper()..' USER'
-							local ind, newent = entityLibrary.getEntityFromPlayer(plr)
-							if newent then entityLibrary.entityUpdatedEvent:Fire(newent) end
-						end
+						
 						--if otherPriority > 0 and otherPriority > localPriority and #args > 1 then
 							table.remove(args, 1)
 							local chosenplayers = findplayers(args[1], plr)
