@@ -284,7 +284,7 @@ end)
 local function getNametagString(plr)
 	local nametag = ""
 	if WhitelistFunctions:CheckPlayerType(plr) == "VAPE PRIVATE" then
-		nametag = '<font color="rgb(127, 0, 255)">[VAPE PRIVATE] '..(plr.DisplayName or plr.Name)..'</font>'
+		nametag = '<font color="rgb(127, 0, 255)"> '..(plr.DisplayName or plr.Name)..'</font>'
 	end
 	if WhitelistFunctions:CheckPlayerType(plr) == "VAPE OWNER" then
 		nametag = '<font color="rgb(255, 80, 80)">[VAPE OWNER] '..(plr.DisplayName or plr.Name)..'</font>'
