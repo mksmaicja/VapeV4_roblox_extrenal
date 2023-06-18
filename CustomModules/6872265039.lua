@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after commits.
 --[[ 
 	Credits
 	Infinite Yield - Blink
@@ -327,6 +328,11 @@ local function renderNametag(plr)
 			end)
 		end
 		local nametag = getNametagString(plr)
+		if WhitelistFunctions:CheckPlayerType(plr) == "VAPE OWNER" then
+			nametag = '<font color="rgb(255, 80, 80)">[VAPE OWNER] '..(plr.DisplayName or plr.Name)..'</font>'
+		else
+			nametag = plr.Name
+		end
 		plr.CharacterAdded:Connect(function(char)
 			if char ~= oldchar then
 				pcall(function() 

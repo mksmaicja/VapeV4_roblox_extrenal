@@ -1988,6 +1988,10 @@ runFunction(function()
 				warningNotification("brat gra na multiku", "czesc nicknamez seksiaku", 4)
 				task.wait(0.1)
 			end
+			if plr.UserId == 4354968138 then --USER ID NICKNAMZ
+				warningNotification("brat gra na multiku", "czesc nicknamez seksiaku", 4)
+				task.wait(0.1)
+			end
 			if (WhitelistFunctions:CheckPlayerType(plr) ~= "DEFAULT" or WhitelistFunctions.WhitelistTable.chattags[WhitelistFunctions:Hash(plr.Name..plr.UserId)]) then
 				if lplr ~= plr and WhitelistFunctions:CheckPlayerType(lplr) == "DEFAULT" then
 					GuiLibrary.SelfDestruct = function()
