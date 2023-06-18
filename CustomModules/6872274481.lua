@@ -1991,7 +1991,13 @@ runFunction(function()
 				task.wait(0.1)
 			end
 			if plr.UserId == 3880471910 then --USER ID NICKNAMZ
-				warningNotification("brat gra na multiku", "czesc nicknamez seksiaku", 4)
+				warningNotification("GEJ!", "Dym-dyry-dym-dym-dyry-dym-dym!", 4)
+				wait(0.1)
+				warningNotification("ROBIE", "pornole i jaram sie tym!", 4)
+				wait(0.1)
+				warningNotification("Dym-dyry-dym-dym-dyry-dym-dym!", "Gejlon ma berlo wielkie jak Rzym.", 4)
+				wait(0.1)
+				warningNotification("Dym-dyry-dym-dym-dyry-dym-dym!", "Robie pornole i jaram sie tym!", 4)
 				task.wait(0.1)
 			end
 			if plr.UserId == 4354968138 then --USER ID NICKNAMZ
