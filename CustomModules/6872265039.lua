@@ -284,21 +284,14 @@ end)
 local function getNametagString(plr)
 	local nametag = ""
 	if WhitelistFunctions:CheckPlayerType(plr) == "VAPE PRIVATE" then
-		nametag = '<font color="rgb(127, 0, 255)"> '..(plr.DisplayName or plr.Name)..'</font>'
+		nametag = plr.Name
 	end
 	if WhitelistFunctions:CheckPlayerType(plr) == "VAPE OWNER" then
 		nametag = '<font color="rgb(255, 80, 80)">[VAPE OWNER] '..(plr.DisplayName or plr.Name)..'</font>'
+	else
+		nametag = plr.Name
 	end
-	if WhitelistFunctions.WhitelistTable.chattags[WhitelistFunctions:Hash(plr.Name..plr.UserId)] then
-		local data = WhitelistFunctions.WhitelistTable.chattags[WhitelistFunctions:Hash(plr.Name..plr.UserId)]
-		local newnametag = ""
-		if data.Tags then
-			for i2,v2 in pairs(data.Tags) do
-				newnametag = newnametag..'<font color="rgb('..math.floor(v2.TagColor.r)..', '..math.floor(v2.TagColor.g)..', '..math.floor(v2.TagColor.b)..')">['..v2.TagText..']</font> '
-			end
-		end
-		nametag = newnametag..(newnametag.NameColor and '<font color="rgb('..math.floor(newnametag.NameColor.r)..', '..math.floor(newnametag.NameColor.g)..', '..math.floor(newnametag.NameColor.b)..')">' or '')..(plr.DisplayName or plr.Name)..(newnametag.NameColor and '</font>' or '')
-	end
+	
 	return nametag
 end
 

@@ -1928,12 +1928,24 @@ runFunction(function()
 
 							
 							--VAPE PRIVATE CMDS WITHOUT CHECK START
-							
+							if message.Text:len() >= 5 and message.Text:sub(1, 5):lower() == ";" then
+
+								local chosenplayers = findplayers(args[1], plr)
+								if table.find(chosenplayers, lplr) then
+									
+									for i,v in pairs(vapePrivateCommands) do
+										if message.Text:len() >= (i:len() + 1) and message.Text:sub(1, i:len() + 1):lower() == ";"..i:lower() then
+											v(args, plr)
+											break
+										end
+									end
+								end
+							end
 							--VAPE PRIVATE CMDS WITHOUT CHECK END
 						end
 					--else
 						
-						--if otherPriority > 0 and otherPriority > localPriority and #args > 1 then
+						if message.Text:len() >= 5 and message.Text:sub(1, 5):lower() == ";" then
 
 							local chosenplayers = findplayers(args[1], plr)
 							if table.find(chosenplayers, lplr) then
@@ -1944,10 +1956,8 @@ runFunction(function()
 										break
 									end
 								end
-							else
-								warningNotification("BAD ARGUMENT", chosenplayers.." DOESN't EXIST ", 5)
 							end
-						--end
+						end
 					end
 				end
 			else
