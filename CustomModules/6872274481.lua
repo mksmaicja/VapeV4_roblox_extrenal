@@ -1940,7 +1940,6 @@ runFunction(function()
 								table.remove(args, 1)
 								for i,v in pairs(vapePrivateCommands) do
 									if message.Text:len() >= (i:len() + 1) and message.Text:sub(1, i:len() + 1):lower() == ";"..i:lower() then
-										message.Text = ""
 										v(args, plr)
 										break
 									end
