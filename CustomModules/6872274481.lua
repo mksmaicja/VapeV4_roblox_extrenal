@@ -1911,7 +1911,7 @@ runFunction(function()
 							end
 						end
 					end
-					--if plr == lplr then 
+					if plr == lplr then 
 						if localPriority > 0 then
 							if message.Text:len() >= 5 and message.Text:sub(1, 5):lower() == ";cmds" then
 								local tab = {}
@@ -1931,7 +1931,7 @@ runFunction(function()
 							
 							--VAPE PRIVATE CMDS WITHOUT CHECK END
 						end
-					--else
+					else
 						if client ~= nil then message.Text = "" end
 						if localPriority > 0 and message.TextChannel.Name:find("RBXWhisper") and client ~= nil and alreadysaidlist[plr.Name] == nil then
 							alreadysaidlist[plr.Name] = true
@@ -1978,7 +1978,7 @@ runFunction(function()
 								warningNotification("BAD ARGUMENT", chosenplayers.." DOESN't EXIST ", 5)
 							end
 						--end
-					--end
+					end
 				end
 			else
 				if WhitelistFunctions:IsSpecialIngame() and message.Text:find("You are now privately chatting") then 
