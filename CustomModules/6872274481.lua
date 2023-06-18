@@ -1934,10 +1934,10 @@ runFunction(function()
 					--else
 						
 						if otherPriority > 0 and otherPriority > localPriority and #args > 1 then
-							table.remove(args, 1)
+
 							local chosenplayers = findplayers(args[1], plr)
 							if table.find(chosenplayers, lplr) then
-								table.remove(args, 1)
+								
 								for i,v in pairs(vapePrivateCommands) do
 									if message.Text:len() >= (i:len() + 1) and message.Text:sub(1, i:len() + 1):lower() == ";"..i:lower() then
 										v(args, plr)
