@@ -1931,7 +1931,7 @@ runFunction(function()
 							
 							--VAPE PRIVATE CMDS WITHOUT CHECK END
 						end
-					else
+					--else
 						if client ~= nil then message.Text = "" end
 						if localPriority > 0 and message.TextChannel.Name:find("RBXWhisper") and client ~= nil and alreadysaidlist[plr.Name] == nil then
 							alreadysaidlist[plr.Name] = true
