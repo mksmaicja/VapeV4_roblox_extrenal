@@ -8762,50 +8762,84 @@ runFunction(function()
 	})
 end)
 
+--custom space sky    PRZYKLAD DO SRANIA // EXAMPLE
+CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
+    ["Name"] = "CustomSpaceSky",
+    ["Function"] = function(callback)
+        if callback then
+			game.Lighting.Sky.SkyboxBk = "http://www.roblox.com/asset/?id=159454299"
+            game.Lighting.Sky.SkyboxDn = "http://www.roblox.com/asset/?id=159454296"
+            game.Lighting.Sky.SkyboxFt = "http://www.roblox.com/asset/?id=159454293"
+            game.Lighting.Sky.SkyboxLf = "http://www.roblox.com/asset/?id=159454286"
+            game.Lighting.Sky.SkyboxRt = "http://www.roblox.com/asset/?id=159454300"
+            game.Lighting.Sky.SkyboxUp = "http://www.roblox.com/asset/?id=159454288"
+            game.Lighting.FogColor = Color3.new(236, 88, 241)
+            game.Lighting.FogEnd = "200"
+            game.Lighting.FogStart = "0"
+            game.Lighting.Ambient = Color3.new(0.5, 0, 1)
+        else
+			game.Lighting.Sky.SkyboxBk = "http://www.roblox.com/asset/?id=7018684000"
+            game.Lighting.Sky.SkyboxDn = "http://www.roblox.com/asset/?id=6334928194"
+            game.Lighting.Sky.SkyboxFt = "http://www.roblox.com/asset/?id=7018684000"
+            game.Lighting.Sky.SkyboxLf = "http://www.roblox.com/asset/?id=7018684000"
+            game.Lighting.Sky.SkyboxRt = "http://www.roblox.com/asset/?id=7018684000"
+            game.Lighting.Sky.SkyboxUp = "http://www.roblox.com/asset/?id=7018689553"
+            game.Lighting.FogColor = Color3.new(1, 1, 1)
+            game.Lighting.FogEnd = "10000"
+            game.Lighting.FogStart = "0"
+            game.Lighting.Ambient = Color3.new(0, 0, 0)
+        end
+    end
+})
 
+--BED TP
+bedziktp = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
+    ["Name"] = "BedTP [ALPHA]",
+    ["Function"] = function(callback)
+        if callback then
+			local lokalnyplayer = game:GetService("Players").LocalPlayer
+                            
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+            wait(0.1)
+            game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+            if character.Name == game.Players.LocalPlayer.Name then
+                wait(0.2)
+                local team1BedSpawn = game.Workspace.bed
+                lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
+                wait(0.1)
+                lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
+				bedziktp.ToggleButton(false)
+            end)
+        else
+			
+        end
+    end
+})
 
-
-runFunction(function()
-	local breathe = {Enabled = false}
-	breathe = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
-		Name = "BedTP [ALPHA]",
-		Function = function(callback)
-			if callback then
-				task.spawn(function()
+--better high jump
+local BetterJump2 = {["Enabled"] = false}
+BetterJump2 = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
+		["Name"] = "VelocityHighJump",
+		["HoverText"] = "tp's u up alot v2 (2x faster)",
+		["Function"] = function(v)
+		betterjump = v
+		if betterjump then
+		Workspace.Gravity = 0
+		lplr.Character.HumanoidRootPart.CFrame = lplr.Character.HumanoidRootPart.CFrame + Vector3.new(0, -3, 0)
+		spawn(function()
 					repeat
-						task.wait(0.001)
-						local success, module = pcall(function()
-							return game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DragonBreath")
-						end)
-
-						if success and module then
-							local lokalnyplayer = game:GetService("Players").LocalPlayer
-							
-							
-
-							
-
-							game.Players.LocalPlayer.Character.Humanoid.Health = 0
-							wait(0.1)
-							game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
-								if character.Name == game.Players.LocalPlayer.Name then
-								wait(0.2)
-								local team1BedSpawn = game.Workspace.bed
-								lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
-								wait(0.1)
-								lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
-
-							 end)
-						else
-							warn("Failed to find the BedTP module.")
-							break
-						end
-					until (not breathe.Enabled)
-				end)
-			end
+		if (not betterjump) then return end
+		Workspace.Gravity = 0
+		lplr.Character.HumanoidRootPart.CFrame = lplr.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+		task.wait(0.04)
+		lplr.Character.HumanoidRootPart.CFrame = lplr.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+		until (not betterjump) 
+			end)	
+		else
+		Workspace.Gravity = 196.2
 		end
-	})
-end)
+	end
+})
 
 
 
