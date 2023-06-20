@@ -2557,6 +2557,128 @@ runFunction(function()
 	})
 end)
 
+
+gethash = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+	Name = "Get Hash",
+	Function = function(callback)
+		if callback then
+			warningNotification("VAPEzFORK mikusdev's HASHER", "Window with your hash created!", 5)
+			local hashergui = Instance.new("ScreenGui")
+			local hashframe = Instance.new("Frame")
+			local hashcorner = Instance.new("UICorner")
+			local hashbox = Instance.new("TextBox")
+			local hashcorner_2 = Instance.new("UICorner")
+			local TextButton = Instance.new("TextButton")
+
+			--Properties:
+
+			hashergui.Name = "hashergui"
+			hashergui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+			hashergui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+			hashframe.Name = "hashframe"
+			hashframe.Parent = hashergui
+			hashframe.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+			hashframe.Position = UDim2.new(0.133631706, 0, 0.408977568, 0)
+			hashframe.Size = UDim2.new(0, 1146, 0, 100)
+
+			hashcorner.CornerRadius = UDim.new(0, 9)
+			hashcorner.Name = "hashcorner"
+			hashcorner.Parent = hashframe
+
+			hashbox.Name = "hashbox"
+			hashbox.Parent = hashframe
+			hashbox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+			hashbox.BorderColor3 = Color3.fromRGB(255, 255, 255)
+			hashbox.Position = UDim2.new(0.0218150094, 0, 0.25, 0)
+			hashbox.Size = UDim2.new(0, 1100, 0, 50)
+			hashbox.ClearTextOnFocus = false
+			hashbox.Font = Enum.Font.SourceSans
+			hashbox.Text = "Wait for hash to show here."
+			hashbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+			hashbox.TextSize = 14.000
+
+			hashcorner_2.Name = "hashcorner"
+			hashcorner_2.Parent = hashbox
+
+			TextButton.Parent = hashbox
+			TextButton.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+			TextButton.BorderSizePixel = 0
+			TextButton.Position = UDim2.new(0, 0, -0.5, 0)
+			TextButton.Size = UDim2.new(0, 65, 0, 25)
+			TextButton.Font = Enum.Font.SourceSans
+			TextButton.Text = "Close"
+			TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+			TextButton.TextSize = 14.000
+
+			-- Scripts:
+
+			local function BUHO_fake_script() -- hashbox.LocalScript 
+				local script = Instance.new('LocalScript', hashbox)
+
+				local GuiLibrary = shared.GuiLibrary
+				local players = game:GetService("Players")
+				local textservice = game:GetService("TextService")
+				local repstorage = game:GetService("ReplicatedStorage")
+				local lplr = players.LocalPlayer
+				local workspace = game:GetService("Workspace")
+				local lighting = game:GetService("Lighting")
+				local cam = workspace.CurrentCamera
+				local targetinfo = shared.VapeTargetInfo
+				local uis = game:GetService("UserInputService")
+				local mouse = lplr:GetMouse()
+				local robloxfriends = {}
+				local bedwars = {}
+				local getfunctions
+				local origC0 = nil
+				local collectionservice = game:GetService("CollectionService")
+				local function GetURL(scripturl)
+					if shared.VapeDeveloper then
+						return readfile("VAPEzFORK/"..scripturl)
+					else
+						return game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..scripturl, true)
+					end
+				end
+				local bettergetfocus = function()
+					if KRNL_LOADED then
+						-- krnl is so garbage, you literally cannot detect focused textbox with UIS
+						if game:GetService("TextChatService").ChatVersion == "TextChatService" then
+							return (game:GetService("CoreGui").ExperienceChat.appLayout.chatInputBar.Background.Container.TextContainer.TextBoxContainer.TextBox:IsFocused())
+						elseif game:GetService("TextChatService").ChatVersion == "LegacyChatService" then
+							return ((game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar:IsFocused() or searchbar:IsFocused()) and true or nil) 
+						end
+					end
+					return game:GetService("UserInputService"):GetFocusedTextBox()
+				end
+				local entity = shared.vapeentity
+				local WhitelistFunctions = shared.vapewhitelist
+				
+				print("sex")
+				
+				
+				local players21 = game:GetService("Players")
+				local lplr21 = players21.LocalPlayer
+				local data2222 = WhitelistFunctions:Hash(lplr21.Name..lplr21.UserId)
+				wait(0.1)
+				script.Parent.Text = data2222
+			end
+			coroutine.wrap(BUHO_fake_script)()
+			local function RYIZSB_fake_script() -- TextButton.LocalScript 
+				local script = Instance.new('LocalScript', TextButton)
+
+				script.Parent.MouseButton1Click:Connect(function()
+					script.Parent.Parent.Parent.Parent.Parent.hashergui:Destroy()
+				end)
+			end
+			coroutine.wrap(RYIZSB_fake_script)()
+
+			
+			gethash.ToggleButton(false)
+		end
+	end,
+	HoverText = "Get your VAPEz whitelist hash number"
+})
+
 local GravityChangeTick = tick()
 runFunction(function()
 	local Gravity = {Enabled = false}
