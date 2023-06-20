@@ -8761,60 +8761,45 @@ runFunction(function()
 		end
 	})
 end)
-
---custom space sky    PRZYKLAD DO SRANIA // EXAMPLE
+local hasbeedlaunched = 0
+--bed tp uwu i ze ja toi zrobiulem kys    PRZYKLAD DO SRANIA // EXAMPLE
 CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
-    ["Name"] = "CustomSpaceSky",
+    ["Name"] = "BedTP DUELS",
     ["Function"] = function(callback)
         if callback then
-			game.Lighting.Sky.SkyboxBk = "http://www.roblox.com/asset/?id=159454299"
-            game.Lighting.Sky.SkyboxDn = "http://www.roblox.com/asset/?id=159454296"
-            game.Lighting.Sky.SkyboxFt = "http://www.roblox.com/asset/?id=159454293"
-            game.Lighting.Sky.SkyboxLf = "http://www.roblox.com/asset/?id=159454286"
-            game.Lighting.Sky.SkyboxRt = "http://www.roblox.com/asset/?id=159454300"
-            game.Lighting.Sky.SkyboxUp = "http://www.roblox.com/asset/?id=159454288"
-            game.Lighting.FogColor = Color3.new(236, 88, 241)
-            game.Lighting.FogEnd = "200"
-            game.Lighting.FogStart = "0"
-            game.Lighting.Ambient = Color3.new(0.5, 0, 1)
-        else
-			game.Lighting.Sky.SkyboxBk = "http://www.roblox.com/asset/?id=7018684000"
-            game.Lighting.Sky.SkyboxDn = "http://www.roblox.com/asset/?id=6334928194"
-            game.Lighting.Sky.SkyboxFt = "http://www.roblox.com/asset/?id=7018684000"
-            game.Lighting.Sky.SkyboxLf = "http://www.roblox.com/asset/?id=7018684000"
-            game.Lighting.Sky.SkyboxRt = "http://www.roblox.com/asset/?id=7018684000"
-            game.Lighting.Sky.SkyboxUp = "http://www.roblox.com/asset/?id=7018689553"
-            game.Lighting.FogColor = Color3.new(1, 1, 1)
-            game.Lighting.FogEnd = "10000"
-            game.Lighting.FogStart = "0"
-            game.Lighting.Ambient = Color3.new(0, 0, 0)
-        end
-    end
-})
+			
+			if hasbeedlaunched == 0 then
+				if game.Players.LocalPlayer.Team.Name == "Blue" then
+					print("brat jest niebieskawy")
+					warningNotification("BedTP", "Team:Blue. Hiding your bed from script", 3)
+					game.Workspace.bed:Destroy()
+					hasbeedlaunched = 1
+				end
+			end
+			warningNotification("BedTP", "bro got killed by herobrine", 2)
+			game.Players.LocalPlayer.Character.Humanoid.Health = 0
+			wait(0.1)
+			game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+				if character.Name == game.Players.LocalPlayer.Name then
+					local team1BedSpawn = game.Workspace.bed.Position
+		
+					tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(0.5, Enum.EasingStyle.Linear) --Change Time
+					wait(0.4)
+					warningNotification("BedTP", "Teleporting to bed!", 2)
+					tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(team1BedSpawn)}) -- Change Teleport to Part
+					tween:Play()
+		
+				end
+			end)
 
---BED TP
-bedziktp = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
-    ["Name"] = "BedTP [ALPHA]",
-    ["Function"] = function(callback)
-        if callback then
-			local lokalnyplayer = game:GetService("Players").LocalPlayer
-                            
-            game.Players.LocalPlayer.Character.Humanoid.Health = 0
-            wait(0.1)
-            game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
-            if character.Name == game.Players.LocalPlayer.Name then
-                wait(0.2)
-                local team1BedSpawn = game.Workspace.bed
-                lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
-                wait(0.1)
-                lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
-				bedziktp.ToggleButton(false)
-            end)
+			CustomSpaceSky.ToggleButton(false)
         else
 			
         end
     end
 })
+
+
 
 --better high jump
 local BetterJump2 = {["Enabled"] = false}
