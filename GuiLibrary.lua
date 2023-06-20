@@ -1,5 +1,5 @@
 if shared.VapeExecuted then
-	local VERSION = "4.10"..(shared.VapePrivate and " PRIVATE" or " PRIVATE").." "..readfile("VAPEzFORK/commithash.txt"):sub(1, 6)
+	local VERSION = "4.20"..(shared.VapePrivate and " PRIVATE" or " PRIVATE").." "..readfile("VAPEzFORK/commithash.txt"):sub(1, 6)
 	local baseDirectory = (shared.VapePrivate and "VAPEzFORKprivate/" or "VAPEzFORKprivate/")
 	local universalRainbowValue = 0
 	local vapeAssetTable = {

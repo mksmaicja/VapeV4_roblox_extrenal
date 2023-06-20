@@ -1,4 +1,5 @@
 --This watermark is used to delete the file if its cached, remove it to make the file persist after commits.
+--This watermark is used to delete the file if its cached, remove it to make the file persist after commits.
 local GuiLibrary = shared.GuiLibrary
 local playersService = game:GetService("Players")
 local textService = game:GetService("TextService")
@@ -8764,13 +8765,24 @@ runFunction(function()
 		end
 	})
 end)
+local team22BedSpawn = CFrame.new(0, 0, 0)
+local selectedtpmodule = 0
 
+function teleportmodule(locationb)
+	tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(0.5, Enum.EasingStyle.Linear) --Change Time
+	wait(0.36)
+	warningNotification("BedTP", "Teleporting to bed!", 2)
+	tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(locationb)}) -- Change Teleport to Part
+	tween:Play()
+	wait(0.5)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y + 30, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+end
 --bed tp uwu i ze ja toi zrobiulem kys    PRZYKLAD DO SRANIA // EXAMPLE
-CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
+CustomSpaceSky1 = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
     ["Name"] = "BedTP BETA",
     ["Function"] = function(callback)
         if callback then
-			
+			selectedtpmodule = 1
 			function destroybed()
 				if bedpjoriti == actualbed then
 					warningNotification("BedTP", "Hiding your bed from script", 3)
@@ -8831,31 +8843,58 @@ CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsB
 					destroybed()
 				end
 			end
-			warningNotification("BedTP", "bro got killed by herobrine", 2)
+			local team1BedSpawn = game.Workspace.bed.Position
+
+			warningNotification("BedTP", "bro got killed by herobrine", 3)
 			game.Players.LocalPlayer.Character.Humanoid.Health = 0
 			wait(0.1)
 			game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
 				if character.Name == game.Players.LocalPlayer.Name then
-					local team1BedSpawn = game.Workspace.bed.Position
-			
-					tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(0.5, Enum.EasingStyle.Linear) --Change Time
-					wait(0.36)
-					warningNotification("BedTP", "Teleporting to bed!", 2)
-					tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(team1BedSpawn)}) -- Change Teleport to Part
-					tween:Play()
-					wait(0.5)
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y + 30, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
-					
-				end
-			end)
+					if selectedtpmodule == 1 then
+						teleportmodule(team1BedSpawn)
+					end
 
-			CustomSpaceSky.ToggleButton(false)
+				end
+				
+			end)
+			
+			
+			CustomSpaceSky1.ToggleButton(false)
         else
 			
         end
     end
 })
 
+ --przycisk taki przykladowy emo sample example
+jajuszko = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+    ["Name"] = "RespawnOnDeath",
+	["HoverText"] = "Teleport you to place where you last used keybind to this module",
+    ["Function"] = function(callback)
+        if callback then
+			selectedtpmodule = 2
+			warningNotification("RespawnOnDeath", "Saved Spawnpoint!", 2)
+			team1BedSpawn =  Vector3.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y + 20, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+			
+			respawnloop = game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+				if character.Name == game.Players.LocalPlayer.Name then
+					
+					if selectedtpmodule == 2 then
+						teleportmodule(team1BedSpawn)
+					end
+
+				end
+				
+			end)
+			
+			
+			jajuszko.ToggleButton(false)
+        else
+			
+        end
+    end
+	
+})
 
 
 --better high jump
