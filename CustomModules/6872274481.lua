@@ -8771,100 +8771,123 @@ local selectedtpmodule = 0
 function teleportmodule(locationb)
 	tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(0.5, Enum.EasingStyle.Linear) --Change Time
 	wait(0.36)
-	warningNotification("BedTP", "Teleporting to bed!", 2)
+	warningNotification(" mikusdev's Teleport Module", "Teleporting!", 2)
 	tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(locationb)}) -- Change Teleport to Part
 	tween:Play()
 	wait(0.5)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y + 30, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
 end
 --bed tp uwu i ze ja toi zrobiulem kys    PRZYKLAD DO SRANIA // EXAMPLE
-CustomSpaceSky1 = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
-    ["Name"] = "BedTP BETA",
-    ["Function"] = function(callback)
-        if callback then
-			selectedtpmodule = 1
-			function destroybed()
-				if bedpjoriti == actualbed then
-					warningNotification("BedTP", "Hiding your bed from script", 3)
-					print("destroying")
-					game.Workspace.bed:Destroy()
-					hasbeenlaunched = 1
-				else
-					actualbed = actualbed + 1
-				end
-			end
-			if hasbeenlaunched == 0 then
-				if game.Players.LocalPlayer.Team.Name == "Blue" then
-					bedpjoriti = 1
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Red" then
-					bedpjoriti = 2
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Green" then
-					bedpjoriti = 3
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Yellow" then
-					bedpjoriti = 4
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Orange" then
-					bedpjoriti = 5
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Pink" then
-					bedpjoriti = 6
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Cyan" then
-					bedpjoriti = 7
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Purple" then
-					bedpjoriti = 8
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Black" then
-					bedpjoriti = 9
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Gray" then
-					bedpjoriti = 10
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Lime" then
-					bedpjoriti = 11
-					destroybed()
-				end
-				if game.Players.LocalPlayer.Team.Name == "Brown" then
-					bedpjoriti = 12
-					destroybed()
-				end
-			end
-			local team1BedSpawn = game.Workspace.bed.Position
 
-			warningNotification("BedTP", "bro got killed by herobrine", 3)
-			game.Players.LocalPlayer.Character.Humanoid.Health = 0
-			wait(0.1)
-			game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
-				if character.Name == game.Players.LocalPlayer.Name then
-					if selectedtpmodule == 1 then
-						teleportmodule(team1BedSpawn)
-					end
-
-				end
-				
-			end)
-			
-			
-			CustomSpaceSky1.ToggleButton(false)
-        else
-			
-        end
-    end
+local Sky = GuiLibrary["ObjectsThatCanBeSaved"]["WorldWindow"]["Api"].CreateOptionsButton({
+["Name"] = "NightTimeV2",
+["Function"] = function(v)
+	if v then
+		game.Lighting.Sky.SkyboxBk = "http://www.roblox.com/Asset/?ID=12064107"
+		game.Lighting.Sky.SkyboxDn = "http://www.roblox.com/Asset/?ID=12064152"
+		game.Lighting.Sky.SkyboxFt = "http://www.roblox.com/Asset/?ID=12064121"
+		game.Lighting.Sky.SkyboxLf = "http://www.roblox.com/Asset/?ID=12063984"
+		game.Lighting.Sky.SkyboxRt = "http://www.roblox.com/Asset/?ID=12064115"
+		game.Lighting.Sky.SkyboxUp = "http://www.roblox.com/Asset/?ID=12064131"
+	end
+end
 })
+
+runFunction(function()
+	local Hotbar = {Enabled = false}
+	Hotbar = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+		Name = "RainbowHotbar",
+		HoverText = "from snoopy lol",
+		Function = function(callback)
+			if callback then
+				local players = game:GetService("Players")
+				local lplr = players.LocalPlayer
+				local lplrGui = lplr.PlayerGui
+	
+				local rs = game:GetService("RunService")
+	
+				local function ChangeHotbar()
+					for index, frame in pairs(lplrGui:FindFirstChild('hotbar')['1']['4']:GetChildren()) do
+						if frame:IsA("Frame") then
+							local object = frame:FindFirstChild("1")
+							if object and object:IsA('ImageButton') then
+								local hue = tick() % 4 / 4
+								object.BorderColor3 = Color3.fromHSV(hue, 1, 1)
+								object.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
+								object.BackgroundTransparency = 0.75 
+	
+								local Text = object:FindFirstChild("1")
+								if Text and Text:IsA("TextLabel") then
+									Text.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
+								end
+							end
+						end
+					end
+				end
+	
+				local HotbarConnection
+	
+				HotbarConnection = rs.PreRender:Connect(ChangeHotbar)
+	
+				lplr.CharacterAdded:Connect(function()
+					HotbarConnection:Disconnect()
+					HotbarConnection = rs.PreRender:Connect(ChangeHotbar)
+				end)
+			end
+		end
+	})
+end)
+	
+runFunction(function()
+	local hasTeleported = false
+	local TweenService = game:GetService("TweenService")
+	
+	function findNearestBed()
+		local nearestBed = nil
+		local minDistance = math.huge
+			
+		for _,v in pairs(game.Workspace:GetDescendants()) do
+			if v.Name:lower() == "bed" and v:FindFirstChild("Covers") and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
+				local distance = (v.Position - lplr.Character.HumanoidRootPart.Position).magnitude
+				if distance < minDistance then
+					nearestBed = v
+					minDistance = distance
+				end
+			end
+		end
+			
+		return nearestBed
+	end
+	
+	function tweenToNearestBed()
+		local nearestBed = findNearestBed()
+			
+		if nearestBed and not hasTeleported then
+			hasTeleported = true
+	
+			local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
+				
+			local tween = TweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.97), {CFrame = nearestBed.CFrame + Vector3.new(0, 2, 0)})
+			tween:Play()
+		end
+	end
+	
+	BedTp = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+		Name = "BedTP",
+		Function = function(callback)
+			if callback then
+				lplr.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
+				lplr.CharacterAdded:Connect(function()
+					wait(0.3) 
+					tweenToNearestBed()
+				end)
+				hasTeleported = false
+				BedTp["ToggleButton"](false)
+			end
+		end,
+		["HoverText"] = "teleport to nearest enemy bed"
+	})
+end)
 
  --przycisk taki przykladowy emo sample example
 jajuszko = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
@@ -8922,7 +8945,129 @@ BetterJump2 = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].Create
 	end
 })
 
+--custom space sky
+CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
+    Name = "SpaceSky",
+    Function = function(callback)
+        if callback then
+            game.Lighting.Sky.SkyboxBk = "http://www.roblox.com/asset/?id=159454299"
+            game.Lighting.Sky.SkyboxDn = "http://www.roblox.com/asset/?id=159454296"
+            game.Lighting.Sky.SkyboxFt = "http://www.roblox.com/asset/?id=159454293"
+            game.Lighting.Sky.SkyboxLf = "http://www.roblox.com/asset/?id=159454286"
+            game.Lighting.Sky.SkyboxRt = "http://www.roblox.com/asset/?id=159454300"
+            game.Lighting.Sky.SkyboxUp = "http://www.roblox.com/asset/?id=159454288"
+        else
+            if CustomSpaceSky.Enabled then
+                local Lighting = game:GetService("Lighting")
+                local TerrainService = game:GetService("Workspace").Terrain
 
+                local Enabled = true
+                local TerrainPlusEnabled = false
+                local BetterLightingEnabled = true
+
+                function SetupLighting()
+                    local ColorCorrection = Instance.new("ColorCorrectionEffect")
+                    local SunRays = Instance.new("SunRaysEffect")
+                    local Blur = Instance.new("BlurEffect")
+
+                    local Sky = Instance.new("Sky")
+                    local Atmosphere = Instance.new("Atmosphere")
+                    local Clouds = Instance.new("Clouds")
+
+                    for _, item in ipairs(Lighting:GetChildren()) do
+                        if item:IsA("PostEffect") or item:IsA("Sky") or item:IsA("Atmosphere") then
+                            item:Destroy()
+                        end
+                    end
+
+                    Lighting.Brightness = 0.25
+                    Lighting.EnvironmentDiffuseScale = 0.2
+                    Lighting.EnvironmentSpecularScale = 0.7
+                    SunRays.Parent = Lighting
+                    Atmosphere.Parent = Lighting
+                    Sky.Parent = Lighting
+                    Blur.Size = 0
+                    Blur.Parent = Lighting
+                    ColorCorrection.Parent = Lighting
+                    ColorCorrection.Saturation = 0
+
+                    Clouds.Parent = TerrainService
+                    Clouds.Cover = 0.4
+                end
+
+                function SetupTerrain()
+                    local Terrain = game.Workspace.Terrain
+                    Terrain.WaterTransparency = 1
+                    Terrain.WaterReflectance = 1
+                end
+
+                if Enabled then
+                    if TerrainPlusEnabled then
+                        SetupTerrain()
+                    end
+                    if BetterLightingEnabled then
+                        SetupLighting()
+                    end
+                else
+                    error("Script Disabled.")
+                    return false
+                end
+
+                script.Parent = game:GetService("ServerScriptService")
+            end
+        end
+    end
+})
+
+local hpbar = {Enabled = false}
+hpbar = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+    Name = "RainbowHealthbar",
+    Function = function(callback)
+        if callback then
+            task.spawn(function()
+                function TapeRB(X) return math.acos(math.cos(X * math.pi)) / math.pi end
+                counter = 0
+                while hpbar.Enabled do
+                    local hotbar = game.Players.LocalPlayer.PlayerGui.hotbar['1'].HotbarHealthbarContainer.HealthbarProgressWrapper['1']
+                    local alpha = TapeRB(counter)
+                    hotbar.BackgroundColor3 = Color3.fromHSV(alpha, 1, 1)
+                    hotbar.BackgroundTransparency = 0.01 
+                    counter = counter + 0.02
+                    wait(0.079) 
+                end
+            end)
+        else
+            game.Players.LocalPlayer.PlayerGui.hotbar['1'].HotbarHealthbarContainer.HealthbarProgressWrapper['1'].BackgroundColor3 = Color3.fromRGB(203, 54, 36)
+            game.Players.LocalPlayer.PlayerGui.hotbar['1'].HotbarHealthbarContainer.HealthbarProgressWrapper['1'].BackgroundTransparency = 0
+        end
+    end,
+    HoverText = "Makes your health bar rainbow"
+})
+
+local hpbar2 = {Enabled = false}
+hpbar2 = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+    Name = "GreyHP",
+    Function = function(callback)
+        if callback then
+            task.spawn(function()
+                function TapeRB(X) return math.acos(math.cos(X * math.pi)) / math.pi end
+                counter = 0
+                while hpbar2.Enabled do
+                    local hotbar = game.Players.LocalPlayer.PlayerGui.hotbar['1'].HotbarHealthbarContainer.HealthbarProgressWrapper['1']
+                    local alpha = TapeRB(counter)
+                    hotbar.BackgroundColor3 = Color3.fromHSV(alpha, 1, 1)
+                    hotbar.BackgroundTransparency = 1 
+                    counter = counter + 0.02
+                    wait(0.079) 
+                end
+            end)
+        else
+            game.Players.LocalPlayer.PlayerGui.hotbar['1'].HotbarHealthbarContainer.HealthbarProgressWrapper['1'].BackgroundColor3 = Color3.fromRGB(203, 54, 36)
+            game.Players.LocalPlayer.PlayerGui.hotbar['1'].HotbarHealthbarContainer.HealthbarProgressWrapper['1'].BackgroundTransparency = 0
+        end
+    end,
+    HoverText = "Makes your health bar grey"
+})
 
 runFunction(function()
 	local ChestStealer = {Enabled = false}
