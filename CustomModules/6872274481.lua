@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after commits.
 local GuiLibrary = shared.GuiLibrary
 local playersService = game:GetService("Players")
 local textService = game:GetService("TextService")
@@ -8771,16 +8772,16 @@ CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsB
         if callback then
 			
 			function destroybed()
-				if actualbed == bedpjoriti then
+				if bedpjoriti == actualbed then
 					warningNotification("BedTP", "Hiding your bed from script", 3)
+					print("destroying")
 					game.Workspace.bed:Destroy()
-					hasbeedlaunched = 1
+					hasbeenlaunched = 1
 				else
 					actualbed = actualbed + 1
 				end
 			end
-			
-			if hasbeedlaunched == 0 then
+			if hasbeenlaunched == 0 then
 				if game.Players.LocalPlayer.Team.Name == "Blue" then
 					bedpjoriti = 1
 					destroybed()
@@ -8838,10 +8839,12 @@ CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsB
 					local team1BedSpawn = game.Workspace.bed.Position
 			
 					tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(0.5, Enum.EasingStyle.Linear) --Change Time
-					wait(0.4)
+					wait(0.36)
 					warningNotification("BedTP", "Teleporting to bed!", 2)
 					tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(team1BedSpawn)}) -- Change Teleport to Part
 					tween:Play()
+					wait(0.5)
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Y + 30, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
 					
 				end
 			end)
