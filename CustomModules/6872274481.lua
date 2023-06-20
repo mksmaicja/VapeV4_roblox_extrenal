@@ -8734,6 +8734,79 @@ runFunction(function()
 	})
 	AutoToxicPhrases8.Object.AddBoxBKG.AddBox.TextSize = 12
 end)
+--ADDED DRAGON EXPLOIT
+runFunction(function()
+	local breathe = {Enabled = false}
+	breathe = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+		Name = "DragonBreath",
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat
+						task.wait(0.001)
+						local success, module = pcall(function()
+							return game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DragonBreath")
+						end)
+
+						if success and module then
+							local player = game:GetService("Players").LocalPlayer
+							module:FireServer({player = player})
+						else
+							warn("Failed to find the DragonBreath module.")
+							break
+						end
+					until (not breathe.Enabled)
+				end)
+			end
+		end
+	})
+end)
+
+
+
+
+runFunction(function()
+	local breathe = {Enabled = false}
+	breathe = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+		Name = "BedTP [ALPHA]",
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat
+						task.wait(0.001)
+						local success, module = pcall(function()
+							return game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DragonBreath")
+						end)
+
+						if success and module then
+							local lokalnyplayer = game:GetService("Players").LocalPlayer
+							
+							
+
+							
+
+							game.Players.LocalPlayer.Character.Humanoid.Health = 0
+							wait(0.1)
+							game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+								if character.Name == game.Players.LocalPlayer.Name then
+								wait(0.2)
+								local team1BedSpawn = game.Workspace.bed
+								lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
+								wait(0.1)
+								lokalnyplayer.Character:SetPrimaryPartCFrame(team1BedSpawn.CFrame)
+
+							 end)
+						else
+							warn("Failed to find the BedTP module.")
+							break
+						end
+					until (not breathe.Enabled)
+				end)
+			end
+		end
+	})
+end)
+
 
 
 runFunction(function()
