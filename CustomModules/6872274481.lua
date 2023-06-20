@@ -8876,6 +8876,7 @@ runFunction(function()
 		Name = "BedTP",
 		Function = function(callback)
 			if callback then
+				selectedtpmodule = 1
 				lplr.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
 				lplr.CharacterAdded:Connect(function()
 					wait(0.3) 
