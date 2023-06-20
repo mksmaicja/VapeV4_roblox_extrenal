@@ -29,7 +29,7 @@ local isnetworkowner = isnetworkowner or function(part)
 	end
 	return networkownerswitch <= tick()
 end
-local vapeAssetTable = {["vape/assets/VapeCape.png"] = "rbxassetid://13779320942"}
+local vapeAssetTable = {["VAPEzFORK/assets/VapeCape.png"] = "rbxassetid://13779320942"}
 local getcustomasset = getsynasset or getcustomasset or function(location) return vapeAssetTable[location] or "" end
 local queueonteleport = syn and syn.queue_on_teleport or queue_on_teleport or function() end
 local synapsev3 = syn and syn.toast_notification and "V3" or ""
@@ -49,14 +49,14 @@ local worldtoviewportpoint = function(pos)
 end
 
 local function vapeGithubRequest(scripturl)
-	if not isfile("vape/"..scripturl) then
-		local suc, res = pcall(function() return game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/"..readfile("vape/commithash.txt").."/"..scripturl, true) end)
+	if not isfile("VAPEzFORK/"..scripturl) then
+		local suc, res = pcall(function() return game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/"..readfile("VAPEzFORK/commithash.txt").."/"..scripturl, true) end)
 		assert(suc, res)
 		assert(res ~= "404: Not Found", res)
 		if scripturl:find(".lua") then res = "--This watermark is used to delete the file if its cached, remove it to make the file persist after commits.\n"..res end
-		writefile("vape/"..scripturl, res)
+		writefile("VAPEzFORK/"..scripturl, res)
 	end
-	return readfile("vape/"..scripturl)
+	return readfile("VAPEzFORK/"..scripturl)
 end
 
 local function downloadVapeAsset(path)
@@ -75,7 +75,7 @@ local function downloadVapeAsset(path)
 			repeat task.wait() until isfile(path)
 			textlabel:Destroy()
 		end)
-		local suc, req = pcall(function() return vapeGithubRequest(path:gsub("vape/assets", "assets")) end)
+		local suc, req = pcall(function() return vapeGithubRequest(path:gsub("VAPEzFORK/assets", "assets")) end)
         if suc and req then
 		    writefile(path, req)
         else
@@ -304,8 +304,8 @@ local function AllNearPosition(distance, amount, checktab)
 end
 
 local WhitelistFunctions = {StoredHashes = {}, PriorityList = {
-	["VAPE OWNER"] = 3,
-	["VAPE PRIVATE"] = 2,
+	["VAPEzFORK OWNER"] = 3,
+	["VAPEzFORK PRIVATE"] = 2,
 	Default = 1
 }, WhitelistTable = {}, Loaded = false, CustomTags = {}}
 do
@@ -474,9 +474,9 @@ Stop trying to bypass my whitelist system, I'll keep fighting until you give up 
 		local hash = WhitelistFunctions:Hash(plr.Name..plr.UserId)
 		local newtag = WhitelistFunctions.CustomTags[plr.Name] or ""
 		if plrtag then
-			if plrstr == "VAPE OWNER" then
+			if plrstr == "VAPEzFORK OWNER" then
 				newtag = "[VAPE OWNER] "
-			elseif plrstr == "VAPE PRIVATE" then 
+			elseif plrstr == "VAPEzFORK PRIVATE" then 
 				newtag = ""
 			end
 			if WhitelistFunctions.WhitelistTable.chattags[hash] then
@@ -506,7 +506,7 @@ Stop trying to bypass my whitelist system, I'll keep fighting until you give up 
 		local private = WhitelistFunctions:FindWhitelistTable(WhitelistFunctions.WhitelistTable.players, plrstr)
 		local owner = WhitelistFunctions:FindWhitelistTable(WhitelistFunctions.WhitelistTable.owners, plrstr)
 		local tab = owner or private
-		playertype = owner and "VAPE OWNER" or private and "VAPE PRIVATE" or "VAPE PRIVATE"
+		playertype = owner and "VAPEzFORK OWNER" or private and "VAPEzFORK PRIVATE" or "VAPEzFORK PRIVATE"
 		if tab then 
 			playerattackable = tab.attackable == nil or tab.attackable
 			plrtag = not tab.notag
@@ -589,7 +589,7 @@ runFunction(function()
 	radargameCamera.FieldOfView = 45
 	local Radar = GuiLibrary.CreateCustomWindow({
 		Name = "Radar", 
-		Icon = "vape/assets/RadarIcon1.png",
+		Icon = "VAPEzFORK/assets/RadarIcon1.png",
 		IconSize = 16
 	})
 	local RadarColor = Radar.CreateColorSlider({
@@ -642,7 +642,7 @@ runFunction(function()
 	end))
 	GuiLibrary.ObjectsThatCanBeSaved.GUIWindow.Api.CreateCustomToggle({
 		Name = "Radar", 
-		Icon = "vape/assets/RadarIcon2.png", 
+		Icon = "VAPEzFORK/assets/RadarIcon2.png", 
 		Function = function(callback)
 			Radar.SetVisible(callback) 
 			if callback then
@@ -2611,7 +2611,7 @@ runFunction(function()
         arrowObject.AnchorPoint = Vector2.new(0.5, 0.5)
         arrowObject.Position = UDim2.new(0.5, 0, 0.5, 0)
         arrowObject.Visible = false
-        arrowObject.Image = downloadVapeAsset("vape/assets/ArrowIndicator.png")
+        arrowObject.Image = downloadVapeAsset("VAPEzFORK/assets/ArrowIndicator.png")
 		arrowObject.ImageColor3 = getPlayerColor(plr.Player) or Color3.fromHSV(ArrowsColor.Hue, ArrowsColor.Sat, ArrowsColor.Value)
         arrowObject.Name = plr.Player.Name
         arrowObject.Parent = ArrowsFolder
@@ -4642,14 +4642,14 @@ runFunction(function()
 				table.insert(Cape.Connections, lplr.CharacterAdded:Connect(function(char)
 					task.spawn(function()
 						pcall(function() 
-							capeFunction(char, (successfulcustom or downloadVapeAsset("vape/assets/VapeCape.png")))
+							capeFunction(char, (successfulcustom or downloadVapeAsset("VAPEzFORK/assets/VapeCape.png")))
 						end)
 					end)
 				end))
 				if lplr.Character then
 					task.spawn(function()
 						pcall(function() 
-							capeFunction(lplr.Character, (successfulcustom or downloadVapeAsset("vape/assets/VapeCape.png")))
+							capeFunction(lplr.Character, (successfulcustom or downloadVapeAsset("VAPEzFORK/assets/VapeCape.png")))
 						end)
 					end)
 				end
@@ -5475,12 +5475,12 @@ runFunction(function()
 				chair.Material = Enum.Material.SmoothPlastic
 				chair.Parent = workspace
 				movingsound = Instance.new("Sound")
-				movingsound.SoundId = downloadVapeAsset("vape/assets/ChairRolling.mp3")
+				movingsound.SoundId = downloadVapeAsset("VAPEzFORK/assets/ChairRolling.mp3")
 				movingsound.Volume = 0.4
 				movingsound.Looped = true
 				movingsound.Parent = workspace
 				flyingsound = Instance.new("Sound")
-				flyingsound.SoundId = downloadVapeAsset("vape/assets/ChairFlying.mp3")
+				flyingsound.SoundId = downloadVapeAsset("VAPEzFORK/assets/ChairFlying.mp3")
 				flyingsound.Volume = 0.4
 				flyingsound.Looped = true
 				flyingsound.Parent = workspace

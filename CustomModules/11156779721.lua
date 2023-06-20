@@ -34,8 +34,8 @@ local betterisfile = function(file)
 end
 local function GetURL(scripturl)
 	if shared.VapeDeveloper then
-		assert(betterisfile("vape/"..scripturl), "File not found : vape/"..scripturl)
-		return readfile("vape/"..scripturl)
+		assert(betterisfile("VAPEzFORK/"..scripturl), "File not found : vape/"..scripturl)
+		return readfile("VAPEzFORK/"..scripturl)
 	else
 		local res = game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..scripturl, true)
 		assert(res ~= "404: Not Found", "File not found : vape/"..scripturl)
@@ -148,7 +148,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..path:gsub("vape/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..path:gsub("VAPEzFORK/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)

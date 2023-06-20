@@ -79,8 +79,8 @@ local betterisfile = function(file)
 end
 local function GetURL(scripturl)
 	if shared.VapeDeveloper then
-		assert(betterisfile("vape/"..scripturl), "File not found : vape/"..scripturl)
-		return readfile("vape/"..scripturl)
+		assert(betterisfile("VAPEzFORK/"..scripturl), "File not found : vape/"..scripturl)
+		return readfile("VAPEzFORK/"..scripturl)
 	else
 		local res = game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..scripturl, true)
 		assert(res ~= "404: Not Found", "File not found : vape/"..scripturl)
@@ -117,7 +117,7 @@ if shared.RequireTable == nil then
             prompt._hideErrorCode = true
             local gui = Instance.new("ScreenGui", game:GetService("CoreGui"))
             prompt:setParent(gui)
-            prompt:setErrorTitle("Vape")
+            prompt:setErrorTitle("VAPEzFORK")
             prompt:updateButtons({{
                 Text = "OK",
                 Callback = function() prompt:_close() end,
@@ -219,7 +219,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..path:gsub("vape/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..path:gsub("VAPEzFORK/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -1916,7 +1916,7 @@ runcode(function()
 	local origtpstring = tpstring
 	local Overlay = GuiLibrary.CreateCustomWindow({
 		["Name"] = "Overlay", 
-		["Icon"] = "vape/assets/TargetIcon1.png",
+		["Icon"] = "VAPEzFORK/assets/TargetIcon1.png",
 		["IconSize"] = 16
 	})
 	local overlayframe = Instance.new("Frame")
@@ -1961,7 +1961,7 @@ runcode(function()
 	Overlay["Bypass"] = true
 	GuiLibrary["ObjectsThatCanBeSaved"]["GUIWindow"]["Api"].CreateCustomToggle({
 		["Name"] = "Overlay", 
-		["Icon"] = "vape/assets/TargetIcon1.png", 
+		["Icon"] = "VAPEzFORK/assets/TargetIcon1.png", 
 		["Function"] = function(callback)
 			Overlay.SetVisible(callback) 
 			if callback then

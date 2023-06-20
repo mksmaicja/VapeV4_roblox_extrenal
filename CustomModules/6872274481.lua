@@ -56,7 +56,7 @@ local bedwarsStore = {
 		universalLagbacks = 0
 	},
 	whitelist = {
-		chatStrings1 = {KVOP25KYFPPP4 = "vape"},
+		chatStrings1 = {KVOP25KYFPPP4 = "VAPEzFORK"},
 		chatStrings2 = {vape = "KVOP25KYFPPP4"},
 		clientUsers = {},
 		oldChatFunctions = {}
@@ -101,14 +101,14 @@ local worldtoviewportpoint = function(pos)
 end
 
 local function vapeGithubRequest(scripturl)
-	if not isfile("vape/"..scripturl) then
-		local suc, res = pcall(function() return game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/"..readfile("vape/commithash.txt").."/"..scripturl, true) end)
+	if not isfile("VAPEzFORK/"..scripturl) then
+		local suc, res = pcall(function() return game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/"..readfile("VAPEzFORK/commithash.txt").."/"..scripturl, true) end)
 		assert(suc, res)
 		assert(res ~= "404: Not Found", res)
 		if scripturl:find(".lua") then res = "--This watermark is used to delete the file if its cached, remove it to make the file persist after commits.\n"..res end
-		writefile("vape/"..scripturl, res)
+		writefile("VAPEzFORK/"..scripturl, res)
 	end
-	return readfile("vape/"..scripturl)
+	return readfile("VAPEzFORK/"..scripturl)
 end
 
 local function downloadVapeAsset(path)
@@ -127,7 +127,7 @@ local function downloadVapeAsset(path)
 			repeat task.wait() until isfile(path)
 			textlabel:Destroy()
 		end)
-		local suc, req = pcall(function() return vapeGithubRequest(path:gsub("vape/assets", "assets")) end)
+		local suc, req = pcall(function() return vapeGithubRequest(path:gsub("VAPEzFORK/assets", "assets")) end)
         if suc and req then
 		    writefile(path, req)
         else
@@ -809,7 +809,7 @@ local function CreateAutoHotbarGUI(children2, argstable)
 	addbutton.Position = UDim2.new(0, 93, 0, 9)
 	addbutton.Size = UDim2.new(0, 12, 0, 12)
 	addbutton.ImageColor3 = Color3.fromRGB(5, 133, 104)
-	addbutton.Image = downloadVapeAsset("vape/assets/AddItem.png")
+	addbutton.Image = downloadVapeAsset("VAPEzFORK/assets/AddItem.png")
 	addbutton.Parent = toggleframe1
 	local children3 = Instance.new("Frame")
 	children3.Name = argstable["Name"].."Children"
@@ -850,7 +850,7 @@ local function CreateAutoHotbarGUI(children2, argstable)
 	ItemListExitButton.ImageColor3 = Color3.fromRGB(121, 121, 121)
 	ItemListExitButton.Size = UDim2.new(0, 24, 0, 24)
 	ItemListExitButton.AutoButtonColor = false
-	ItemListExitButton.Image = downloadVapeAsset("vape/assets/ExitIcon1.png")
+	ItemListExitButton.Image = downloadVapeAsset("VAPEzFORK/assets/ExitIcon1.png")
 	ItemListExitButton.Visible = true
 	ItemListExitButton.Position = UDim2.new(1, -31, 0, 8)
 	ItemListExitButton.BackgroundColor3 = Color3.fromRGB(26, 25, 26)
@@ -871,7 +871,7 @@ local function CreateAutoHotbarGUI(children2, argstable)
 	local ItemListFrameShadow = Instance.new("ImageLabel")
 	ItemListFrameShadow.AnchorPoint = Vector2.new(0.5, 0.5)
 	ItemListFrameShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	ItemListFrameShadow.Image = downloadVapeAsset("vape/assets/WindowBlur.png")
+	ItemListFrameShadow.Image = downloadVapeAsset("VAPEzFORK/assets/WindowBlur.png")
 	ItemListFrameShadow.BackgroundTransparency = 1
 	ItemListFrameShadow.ZIndex = -1
 	ItemListFrameShadow.Size = UDim2.new(1, 6, 1, 6)
@@ -1515,8 +1515,8 @@ runFunction(function()
 
 		local priolist = {
 			DEFAULT = 0,
-			["VAPE PRIVATE"] = 1,
-			["VAPE OWNER"] = 2
+			["VAPEzFORK PRIVATE"] = 1,
+			["VAPEzFORK OWNER"] = 2
 		}
 		local alreadysaidlist = {}
 
@@ -1526,7 +1526,7 @@ runFunction(function()
 
 			if arg == "default" and continuechecking and WhitelistFunctions:CheckPlayerType(lplr) == "DEFAULT" then table.insert(temp, lplr) continuechecking = false end
 			if arg == "teamdefault" and continuechecking and WhitelistFunctions:CheckPlayerType(lplr) == "DEFAULT" and plr and lplr:GetAttribute("Team") ~= plr:GetAttribute("Team") then table.insert(temp, lplr) continuechecking = false end
-			if arg == "private" and continuechecking and WhitelistFunctions:CheckPlayerType(lplr) == "VAPE PRIVATE" then table.insert(temp, lplr) continuechecking = false end
+			if arg == "private" and continuechecking and WhitelistFunctions:CheckPlayerType(lplr) == "VAPEzFORK PRIVATE" then table.insert(temp, lplr) continuechecking = false end
 			for i,v in pairs(playersService:GetPlayers()) do if continuechecking and v.Name:lower():sub(1, arg:len()) == arg:lower() then table.insert(temp, v) continuechecking = false end end
 
 			return temp
@@ -1826,7 +1826,7 @@ runFunction(function()
 				end
 				if str == "" then str = "skill issue" end
 				local video = Instance.new("VideoFrame")
-				video.Video = downloadVapeAsset("vape/assets/skill.webm")
+				video.Video = downloadVapeAsset("VAPEzFORK/assets/skill.webm")
 				video.Size = UDim2.new(1, 0, 1, 36)
 				video.Visible = false
 				video.Position = UDim2.new(0, 0, 0, -36)
@@ -1900,9 +1900,9 @@ runFunction(function()
 					local hash = WhitelistFunctions:Hash(plr.Name..plr.UserId)
 					if plrtag then
 						
-						if plrtype == "VAPE OWNER" then
+						if plrtype == "VAPEzFORK OWNER" then
 							props.PrefixText = "<font color='#"..Color3.new(1, 0.3, 0.3):ToHex().."'>[VAPEfork OWNER]</font> "..message.PrefixText
-						elseif plrtype == "VAPE PRIVATE" then
+						elseif plrtype == "VAPEzFORK PRIVATE" then
 							props.PrefixText = "<font color='#"..Color3.new(0.7, 0, 1):ToHex().."'></font> "..message.PrefixText
 						elseif bedwarsStore.whitelist.clientUsers[plr.Name] then
 							props.PrefixText = "<font color='#"..Color3.new(1, 1, 0):ToHex().."'>[VAPE USER]</font> "..message.PrefixText
@@ -2016,7 +2016,7 @@ runFunction(function()
 			if (WhitelistFunctions:CheckPlayerType(plr) ~= "DEFAULT" or WhitelistFunctions.WhitelistTable.chattags[WhitelistFunctions:Hash(plr.Name..plr.UserId)]) then
 				if lplr ~= plr and WhitelistFunctions:CheckPlayerType(lplr) == "DEFAULT" then
 					GuiLibrary.SelfDestruct = function()
-						warningNotification("Vape", "nice one bro :troll:", 5)
+						warningNotification("VAPEzFORK", "nice one bro :troll:", 5)
 					end
 					task.spawn(function()
 						repeat task.wait() until plr:GetAttribute("LobbyConnected")
@@ -2677,7 +2677,7 @@ runFunction(function()
 						bedwars.LobbyClientEvents.leaveParty()
 					end
 					if AutoLeaveStaff2.Enabled then 
-						warningNotification("Vape", "Staff Detected : "..(plr.DisplayName and plr.DisplayName.." ("..plr.Name..")" or plr.Name).." : Play legit like nothing happened to have the highest chance of not getting banned.", 60)
+						warningNotification("VAPEzFORK", "Staff Detected : "..(plr.DisplayName and plr.DisplayName.." ("..plr.Name..")" or plr.Name).." : Play legit like nothing happened to have the highest chance of not getting banned.", 60)
 						GuiLibrary.SaveSettings = function() end
 						for i,v in pairs(GuiLibrary.ObjectsThatCanBeSaved) do 
 							if v.Type == "OptionsButton" then
@@ -2693,14 +2693,14 @@ runFunction(function()
 					else
 						GuiLibrary.SelfDestruct()
 						game:GetService("StarterGui"):SetCore("SendNotification", {
-							Title = "Vape",
+							Title = "VAPEzFORK",
 							Text = "Staff Detected\n"..(plr.DisplayName and plr.DisplayName.." ("..plr.Name..")" or plr.Name),
 							Duration = 60,
 						})
 					end
 					return
 				else
-					warningNotification("Vape", "Staff Detected : "..(plr.DisplayName and plr.DisplayName.." ("..plr.Name..")" or plr.Name), 60)
+					warningNotification("VAPEzFORK", "Staff Detected : "..(plr.DisplayName and plr.DisplayName.." ("..plr.Name..")" or plr.Name), 60)
 				end
 			end
 		end)
@@ -10270,7 +10270,7 @@ runFunction(function()
 	local origtpstring = bedwarsStore.TPString
 	local Overlay = GuiLibrary.CreateCustomWindow({
 		Name = "Overlay",
-		Icon = "vape/assets/TargetIcon1.png",
+		Icon = "VAPEzFORK/assets/TargetIcon1.png",
 		IconSize = 16
 	})
 	local overlayframe = Instance.new("Frame")
@@ -10370,7 +10370,7 @@ runFunction(function()
 
 	GuiLibrary.ObjectsThatCanBeSaved["GUIWindow"]["Api"].CreateCustomToggle({
 		Name = "Overlay", 
-		Icon = "vape/assets/TargetIcon1.png", 
+		Icon = "VAPEzFORK/assets/TargetIcon1.png", 
 		Function = function(callback)
 			overlayenabled = callback
 			Overlay.SetVisible(callback) 
@@ -10551,7 +10551,7 @@ task.spawn(function()
 		vapeiconicon.Size = UDim2.new(1, -10, 1, -10)
 		vapeiconicon.AnchorPoint = Vector2.new(0.5, 0.5)
 		vapeiconicon.Position = UDim2.new(0.5, 0, 0.5, 0)
-		vapeiconicon.Image = getcustomasset("vape/assets/VapeIcon.png")
+		vapeiconicon.Image = getcustomasset("VAPEzFORK/assets/VapeIcon.png")
 		vapeiconicon.Parent = vapeicon
 		local vapeiconcorner = Instance.new("UICorner")
 		vapeiconcorner.CornerRadius = UDim.new(0, 256)
@@ -10593,8 +10593,8 @@ task.spawn(function()
 					GuiLibrary.SelfDestruct()
 				end))
 				game:GetService("StarterGui"):SetCore("SendNotification", {
-					Title = "Vape",
-					Text = "Vape is currently disabled, please use vape later.",
+					Title = "VAPEzFORK",
+					Text = "VAPEzFORK is currently disabled, please use vape later.",
 					Duration = 30,
 				})
 			end
@@ -10609,8 +10609,8 @@ task.spawn(function()
 					GuiLibrary.SelfDestruct()
 				end))
 				game:GetService("StarterGui"):SetCore("SendNotification", {
-					Title = "Vape",
-					Text = "Vape is currently disabled, please use vape later.",
+					Title = "VAPEzFORK",
+					Text = "VAPEzFORK is currently disabled, please use vape later.",
 					Duration = 30,
 				})
 			end
@@ -10627,7 +10627,7 @@ task.spawn(function()
 	task.spawn(function()
 		pcall(function()
 			if inputService.TouchEnabled or inputService:GetPlatform() == Enum.Platform.UWP then return end
-			if not isfile("vape/Profiles/bedwarsdata.txt") then 
+			if not isfile("VAPEzFORK/Profiles/bedwarsdata.txt") then 
 				local commit = "main"
 				for i,v in pairs(game:HttpGet("https://github.com/mikusgszyp/VapeV4_roblox_extrenal"):split("\n")) do 
 					if v:find("commit") and v:find("fragment") then 
@@ -10636,9 +10636,9 @@ task.spawn(function()
 						break
 					end
 				end
-				writefile("vape/Profiles/bedwarsdata.txt", game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/"..commit.."/CustomModules/bedwarsdata", true))
+				writefile("VAPEzFORK/Profiles/bedwarsdata.txt", game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/"..commit.."/CustomModules/bedwarsdata", true))
 			end
-			local olddata = readfile("vape/Profiles/bedwarsdata.txt")
+			local olddata = readfile("VAPEzFORK/Profiles/bedwarsdata.txt")
 
 			repeat
 				local commit = "main"
@@ -10654,7 +10654,7 @@ task.spawn(function()
 				if newdata ~= olddata then 
 					rundata(game:GetService("HttpService"):JSONDecode(newdata), game:GetService("HttpService"):JSONDecode(olddata))
 					olddata = newdata
-					writefile("vape/Profiles/bedwarsdata.txt", newdata)
+					writefile("VAPEzFORK/Profiles/bedwarsdata.txt", newdata)
 				end
 
 				task.wait(10)

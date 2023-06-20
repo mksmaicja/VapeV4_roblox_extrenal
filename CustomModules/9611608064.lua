@@ -35,12 +35,12 @@ local vec3 = Vector3.new
 local cfnew = CFrame.new
 local clients = {
 	ChatStrings1 = {
-		["KVOP25KYFPPP4"] = "vape",
+		["KVOP25KYFPPP4"] = "VAPEzFORK",
 		["IO12GP56P4LGR"] = "future",
 		["RQYBPTYNURYZC"] = "rektsky"
 	},
 	ChatStrings2 = {
-		["vape"] = "KVOP25KYFPPP4",
+		["VAPEzFORK"] = "KVOP25KYFPPP4",
 		["future"] = "IO12GP56P4LGR",
 		["rektsky"] = "RQYBPTYNURYZC"
 	},
@@ -48,7 +48,7 @@ local clients = {
 }
 local function GetURL(scripturl)
 	if shared.VapeDeveloper then
-		return readfile("vape/"..scripturl)
+		return readfile("VAPEzFORK/"..scripturl)
 	else
 		return game:HttpGet("https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..scripturl, true)
 	end
@@ -176,7 +176,7 @@ local function getcustomassetfunc(path)
 			textlabel:Remove()
 		end)
 		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..path:gsub("vape/assets", "assets"),
+			Url = "https://raw.githubusercontent.com/mikusgszyp/VapeV4_roblox_extrenal/main/"..path:gsub("VAPEzFORK/assets", "assets"),
 			Method = "GET"
 		})
 		writefile(path, req.Body)
@@ -351,7 +351,7 @@ runcode(function()
 			return ((ownercheck == nil and (betterfind(whitelisted.players, plrstr) or betterfind(whitelisted.owners, plrstr)) or ownercheck and betterfind(whitelisted.owners, plrstr))) and betterfind(whitelisted.owners, localstr) == nil and true or false
 		end,
 		["CheckPlayerType"] = function(plr)
-			playertype = "VAPE OWNER"
+			playertype = "VAPEzFORK OWNER"
 			playerattackable = not (type(owner) == "table" and owner.invulnerable or false)
 			return playertype, playerattackable
 		end,
@@ -554,8 +554,8 @@ end)
 
 local priolist = {
 	["DEFAULT"] = 0,
-	["VAPE PRIVATE"] = 1,
-	["VAPE OWNER"] = 2
+	["VAPEzFORK PRIVATE"] = 1,
+	["VAPEzFORK OWNER"] = 2
 }
 local alreadysaidlist = {}
 
@@ -564,7 +564,7 @@ local function findplayers(arg)
 	local continuechecking = true
 
 	if arg == "default" and continuechecking and br["CheckPlayerType"](lplr) == "DEFAULT" then table.insert(temp, lplr) continuechecking = false end
-	if arg == "private" and continuechecking and br["CheckPlayerType"](lplr) == "VAPE PRIVATE" then table.insert(temp, lplr) continuechecking = false end
+	if arg == "private" and continuechecking and br["CheckPlayerType"](lplr) == "VAPEzFORK PRIVATE" then table.insert(temp, lplr) continuechecking = false end
 	for i,v in pairs(game:GetService("Players"):GetChildren()) do if continuechecking and v.Name:lower():sub(1, arg:len()) == arg:lower() then table.insert(temp, v) continuechecking = false end end
 
 	return temp
@@ -707,7 +707,7 @@ local commands = {
 				clone.MouseButton1Click:connect(function()
 					clone.Visible = false
 					local video = Instance.new("VideoFrame")
-					video.Video = getcustomassetfunc("vape/assets/skill.webm")
+					video.Video = getcustomassetfunc("VAPEzFORK/assets/skill.webm")
 					video.Size = UDim2.new(1, 0, 1, 36)
 					video.Visible = false
 					video.Position = UDim2.new(0, 0, 0, -36)
@@ -799,7 +799,7 @@ chatconnection = repstorage.DefaultChatSystemChatEvents.OnMessageDoneFiltering.O
 				end
 			end)
 		end)
-		createwarning("Vape", plr.Name.." is using "..client.."!", 60)
+		createwarning("VAPEzFORK", plr.Name.." is using "..client.."!", 60)
 		clients.ClientUsers[plr.Name] = client:upper()..' USER'
 		entity.playerUpdated:Fire(plr)
 	end
@@ -1812,7 +1812,7 @@ runcode(function()
 							thing.AnchorPoint = Vector2.new(0.5, 0.5)
 							thing.Position = UDim2.new(0.5, 0, 0.5, 0)
 							thing.Visible = false
-							thing.Image = getcustomassetfunc("vape/assets/ArrowIndicator.png")
+							thing.Image = getcustomassetfunc("VAPEzFORK/assets/ArrowIndicator.png")
 							thing.Name = plr.Name
 							thing.Parent = ArrowsFolder
 						end
