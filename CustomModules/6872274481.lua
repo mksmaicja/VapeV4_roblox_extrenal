@@ -8865,9 +8865,9 @@ runFunction(function()
 		if nearestBed and not hasTeleported then
 			hasTeleported = true
 	
-			local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
+			local tweenInfo = TweenInfo.new(0.46, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
 				
-			local tween = TweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.97), {CFrame = nearestBed.CFrame + Vector3.new(0, 2, 0)})
+			local tween = TweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.97), {CFrame = nearestBed.CFrame + Vector3.new(0, 20, 0)})
 			tween:Play()
 		end
 	end
