@@ -20,7 +20,7 @@ local vapeEvents = setmetatable({}, {
 })
 local vapeTargetInfo = shared.VapeTargetInfo
 local vapeInjected = true
-
+local hasbeedlaunched = 0
 local bedwars = {}
 local bedwarsStore = {
 	attackReach = 0,
@@ -8761,7 +8761,7 @@ runFunction(function()
 		end
 	})
 end)
-local hasbeedlaunched = 0
+
 --bed tp uwu i ze ja toi zrobiulem kys    PRZYKLAD DO SRANIA // EXAMPLE
 CustomSpaceSky = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
     ["Name"] = "BedTP DUELS",

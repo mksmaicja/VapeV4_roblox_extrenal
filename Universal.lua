@@ -477,7 +477,7 @@ Stop trying to bypass my whitelist system, I'll keep fighting until you give up 
 			if plrstr == "VAPE OWNER" then
 				newtag = "[VAPE OWNER] "
 			elseif plrstr == "VAPE PRIVATE" then 
-				newtag = "[VAPE PRIVATE] "
+				newtag = ""
 			end
 			if WhitelistFunctions.WhitelistTable.chattags[hash] then
 				local data = WhitelistFunctions.WhitelistTable.chattags[hash]
