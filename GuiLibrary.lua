@@ -1,7 +1,6 @@
 if shared.VapeExecuted then
 	local VERSION = "4.20"..(shared.VapePrivate and " PRIVATE" or " PRIVATE").." "..readfile("VAPEzFORK/commithash.txt"):sub(1, 7)
 	local baseDirectory = (shared.VapePrivate and "VAPEzFORKprivate/" or "VAPEzFORKprivate/")
-	local universalRainbowValue = 0
 	local vapeAssetTable = {
 		["VAPEzFORK/assets/AddItem.png"] = "rbxassetid://13350763121",
 		["VAPEzFORK/assets/AddRemoveIcon1.png"] = "rbxassetid://13350764147",
@@ -93,7 +92,8 @@ if shared.VapeExecuted then
 		Notifications = false,
 		ToggleTooltips = false,
 		ObjectsThatCanBeSaved = {["Gui ColorSliderColor"] = {Api = {Hue = 0.44, Sat = 1, Value = 1}}},
-		MobileButtons = {}
+		MobileButtons = {},
+		RainbowSliders = {}
 	}
 	local inputService = game:GetService("UserInputService")
 	local httpService = game:GetService("HttpService")
@@ -104,18 +104,12 @@ if shared.VapeExecuted then
 	local translations = shared.VapeTranslation or {}
 	local translatedlogo = false
 
-	coroutine.resume(coroutine.create(function()
-		repeat
-			task.wait(0.01)
-			universalRainbowValue = universalRainbowValue + 0.005 * GuiLibrary["RainbowSpeed"]
-			if universalRainbowValue > 1 then
-				universalRainbowValue = universalRainbowValue - 1
-			end
-		until not shared.VapeExecuted
-	end))
-
-	local capturedslider = nil
-	local clickgui = {["Visible"] = true}
+	GuiLibrary.ColorStepped = runService.RenderStepped:Connect(function()
+		local col = (tick() * 0.25 * GuiLibrary.RainbowSpeed) % 1 
+		for i, v in pairs(GuiLibrary.RainbowSliders) do 
+			v.SetValue(col)
+		end
+	end)
 
 	local function randomString()
 		local randomlength = math.random(10,100)
@@ -514,75 +508,74 @@ if shared.VapeExecuted then
 	end
 
 	GuiLibrary.SaveSettings = function()
-		if loadedsuccessfully then
-			writefile(baseDirectory.."Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt", httpService:JSONEncode(GuiLibrary.Profiles))
-			local WindowTable = {}
-			for i,v in pairs(GuiLibrary.ObjectsThatCanBeSaved) do
-				if v.Type == "Window" then
-					WindowTable[i] = {["Type"] = "Window", ["Visible"] = v.Object.Visible, ["Expanded"] = v["ChildrenObject"].Visible, ["Position"] = {v.Object.Position.X.Scale, v.Object.Position.X.Offset, v.Object.Position.Y.Scale, v.Object.Position.Y.Offset}}
-				end
-				local bypass = v.Api.Bypass and GuiLibrary.Settings or WindowTable
-				if v.Type == "CustomWindow" then
-					bypass[i] = {["Type"] = "CustomWindow", ["Visible"] = v.Object.Visible, ["Pinned"] = v["Api"]["Pinned"], ["Position"] = {v.Object.Position.X.Scale, v.Object.Position.X.Offset, v.Object.Position.Y.Scale, v.Object.Position.Y.Offset}}
-				end
-				if (v.Type == "ButtonMain" or v.Type == "ToggleMain") then
-					bypass[i] = {["Type"] = "ButtonMain", ["Enabled"] = v["Api"]["Enabled"], ["Keybind"] = v["Api"]["Keybind"]}
-				end
-				if v.Type == "ColorSliderMain" then
-					bypass[i] = {["Type"] = "ColorSliderMain", ["Hue"] = v["Api"]["Hue"], ["Sat"] = v["Api"]["Sat"], ["Value"] = v["Api"]["Value"], ["RainbowValue"] = v["Api"]["RainbowValue"], ["Custom"] = v["Api"]["Custom"]}
-				end
-				if v.Type == "ColorSliderGUI" then
-					bypass[i] = {["Type"] = "ColorSliderGUI", ["Hue"] = v["Api"]["Custom"] and v["Api"]["Hue"] or v["Api"]["Saved"], ["Sat"] = v["Api"]["Sat"], ["Value"] = v["Api"]["Value"], ["RainbowValue"] = v["Api"]["RainbowValue"], ["Custom"] = v["Api"]["Custom"]}
-				end
-				if v.Type == "SliderMain" then
-					bypass[i] = {["Type"] = "SliderMain", ["Value"] = v["Api"]["Value"]}
-				end
-				if v.Type == "DropdownMain" then
-					bypass[i] = {["Type"] = "DropdownMain", ["Value"] = v["Api"]["Value"]}
-				end
-				if v.Type == "TextBoxMain" then
-					bypass[i] = {["Type"] = "TextBoxMain", ["Value"] = v["Api"]["Value"]}
-				end
-				if (v.Type == "Button" or v.Type == "Toggle" or v.Type == "ExtrasButton" or v.Type == "TargetButton") then
-					GuiLibrary.Settings[i] = {["Type"] = "Button", ["Enabled"] = v["Api"]["Enabled"], ["Keybind"] = v["Api"]["Keybind"]}
-				end
-				if (v.Type == "OptionsButton" or v.Type == "ExtrasButton") then
-					GuiLibrary.Settings[i] = {["Type"] = "OptionsButton", ["Enabled"] = v["Api"]["Enabled"], ["Keybind"] = v["Api"]["Keybind"]}
-				end
-				if v.Type == "TextList" then
-					GuiLibrary.Settings[i] = {["Type"] = "TextList", ["ObjectTable"] = v["Api"]["ObjectList"]}
-				end
-				if v.Type == "TextCircleList" then
-					GuiLibrary.Settings[i] = {["Type"] = "TextCircleList", ["ObjectTable"] = v["Api"]["ObjectList"], ["ObjectTableEnabled"] = v["Api"]["ObjectListEnabled"]}
-				end
-				if v.Type == "TextBox" then
-					GuiLibrary.Settings[i] = {["Type"] = "TextBox", ["Value"] = v["Api"]["Value"]}
-				end
-				if v.Type == "Dropdown" then
-					GuiLibrary.Settings[i] = {["Type"] = "Dropdown", ["Value"] = v["Api"]["Value"]}
-				end
-				if v.Type == "Slider" then
-					GuiLibrary.Settings[i] = {["Type"] = "Slider", ["Value"] = v["Api"]["Value"], ["OldMax"] = v["Api"]["Max"], ["OldDefault"] = v["Api"]["Default"]}
-				end
-				if v.Type == "TwoSlider" then
-					GuiLibrary.Settings[i] = {["Type"] = "TwoSlider", ["Value"] = v["Api"]["Value"], ["Value2"] = v["Api"]["Value2"], ["SliderPos1"] = (v.Object:FindFirstChild("Slider") and v.Object.Slider.ButtonSlider.Position.X.Scale or 0), ["SliderPos2"] = (v.Object:FindFirstChild("Slider") and v.Object.Slider.ButtonSlider2.Position.X.Scale or 0)}
-				end
-				if v.Type == "ColorSlider" then
-					GuiLibrary.Settings[i] = {["Type"] = "ColorSlider", ["Hue"] = v["Api"]["Hue"], ["Sat"] = v["Api"]["Sat"], ["Value"] = v["Api"]["Value"], ["RainbowValue"] = v["Api"]["RainbowValue"]}
-				end
-				if v.Type == "LegitModule" then 
-					GuiLibrary.Settings[i] = {["Type"] = "LegitModule", ["Enabled"] = v["Api"]["Enabled"], ["Position"] = {v.Object.Position.X.Scale, v.Object.Position.X.Offset, v.Object.Position.Y.Scale, v.Object.Position.Y.Offset}}
-				end
+		if not loadedsuccessfully then return end
+		writefile(baseDirectory.."Profiles/"..(shared.CustomSaveVape or game.PlaceId)..".vapeprofiles.txt", httpService:JSONEncode(GuiLibrary.Profiles))
+		local WindowTable = {}
+		for i,v in pairs(GuiLibrary.ObjectsThatCanBeSaved) do
+			if v.Type == "Window" then
+				WindowTable[i] = {["Type"] = "Window", ["Visible"] = v.Object.Visible, ["Expanded"] = v["ChildrenObject"].Visible, ["Position"] = {v.Object.Position.X.Scale, v.Object.Position.X.Offset, v.Object.Position.Y.Scale, v.Object.Position.Y.Offset}}
 			end
-			local mobileButtonSaving = {}
-			for _, mobileButton in pairs(GuiLibrary.MobileButtons) do 
-				table.insert(mobileButtonSaving, {Position = {mobileButton.Position.X.Offset, mobileButton.Position.Y.Offset}, Module = mobileButton.Text.."OptionsButton"})
+			local bypass = v.Api.Bypass and GuiLibrary.Settings or WindowTable
+			if v.Type == "CustomWindow" then
+				bypass[i] = {["Type"] = "CustomWindow", ["Visible"] = v.Object.Visible, ["Pinned"] = v["Api"]["Pinned"], ["Position"] = {v.Object.Position.X.Scale, v.Object.Position.X.Offset, v.Object.Position.Y.Scale, v.Object.Position.Y.Offset}}
 			end
-			GuiLibrary.Settings["MobileButtons"] = {["Type"] = "MobileButtons", ["Buttons"] = mobileButtonSaving}
-			WindowTable["GUIKeybind"] = {["Type"] = "GUIKeybind", ["Value"] = GuiLibrary["GUIKeybind"]}
-			writefile(baseDirectory.."Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt", httpService:JSONEncode(GuiLibrary.Settings))
-			writefile(baseDirectory.."Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt", httpService:JSONEncode(WindowTable))
+			if (v.Type == "ButtonMain" or v.Type == "ToggleMain") then
+				bypass[i] = {["Type"] = "ButtonMain", ["Enabled"] = v["Api"]["Enabled"], ["Keybind"] = v["Api"]["Keybind"]}
+			end
+			if v.Type == "ColorSliderMain" then
+				bypass[i] = {["Type"] = "ColorSliderMain", ["Hue"] = v["Api"]["Hue"], ["Sat"] = v["Api"]["Sat"], ["Value"] = v["Api"]["Value"], ["RainbowValue"] = v["Api"]["RainbowValue"], ["Custom"] = v["Api"]["Custom"]}
+			end
+			if v.Type == "ColorSliderGUI" then
+				bypass[i] = {["Type"] = "ColorSliderGUI", ["Hue"] = v["Api"]["Custom"] and v["Api"]["Hue"] or v["Api"]["Saved"], ["Sat"] = v["Api"]["Sat"], ["Value"] = v["Api"]["Value"], ["RainbowValue"] = v["Api"]["RainbowValue"], ["Custom"] = v["Api"]["Custom"]}
+			end
+			if v.Type == "SliderMain" then
+				bypass[i] = {["Type"] = "SliderMain", ["Value"] = v["Api"]["Value"]}
+			end
+			if v.Type == "DropdownMain" then
+				bypass[i] = {["Type"] = "DropdownMain", ["Value"] = v["Api"]["Value"]}
+			end
+			if v.Type == "TextBoxMain" then
+				bypass[i] = {["Type"] = "TextBoxMain", ["Value"] = v["Api"]["Value"]}
+			end
+			if (v.Type == "Button" or v.Type == "Toggle" or v.Type == "ExtrasButton" or v.Type == "TargetButton") then
+				GuiLibrary.Settings[i] = {["Type"] = "Button", ["Enabled"] = v["Api"]["Enabled"], ["Keybind"] = v["Api"]["Keybind"]}
+			end
+			if (v.Type == "OptionsButton" or v.Type == "ExtrasButton") then
+				GuiLibrary.Settings[i] = {["Type"] = "OptionsButton", ["Enabled"] = v["Api"]["Enabled"], ["Keybind"] = v["Api"]["Keybind"]}
+			end
+			if v.Type == "TextList" then
+				GuiLibrary.Settings[i] = {["Type"] = "TextList", ["ObjectTable"] = v["Api"]["ObjectList"]}
+			end
+			if v.Type == "TextCircleList" then
+				GuiLibrary.Settings[i] = {["Type"] = "TextCircleList", ["ObjectTable"] = v["Api"]["ObjectList"], ["ObjectTableEnabled"] = v["Api"]["ObjectListEnabled"]}
+			end
+			if v.Type == "TextBox" then
+				GuiLibrary.Settings[i] = {["Type"] = "TextBox", ["Value"] = v["Api"]["Value"]}
+			end
+			if v.Type == "Dropdown" then
+				GuiLibrary.Settings[i] = {["Type"] = "Dropdown", ["Value"] = v["Api"]["Value"]}
+			end
+			if v.Type == "Slider" then
+				GuiLibrary.Settings[i] = {["Type"] = "Slider", ["Value"] = v["Api"]["Value"], ["OldMax"] = v["Api"]["Max"], ["OldDefault"] = v["Api"]["Default"]}
+			end
+			if v.Type == "TwoSlider" then
+				GuiLibrary.Settings[i] = {["Type"] = "TwoSlider", ["Value"] = v["Api"]["Value"], ["Value2"] = v["Api"]["Value2"], ["SliderPos1"] = (v.Object:FindFirstChild("Slider") and v.Object.Slider.ButtonSlider.Position.X.Scale or 0), ["SliderPos2"] = (v.Object:FindFirstChild("Slider") and v.Object.Slider.ButtonSlider2.Position.X.Scale or 0)}
+			end
+			if v.Type == "ColorSlider" then
+				GuiLibrary.Settings[i] = {["Type"] = "ColorSlider", ["Hue"] = v["Api"]["Hue"], ["Sat"] = v["Api"]["Sat"], ["Value"] = v["Api"]["Value"], ["RainbowValue"] = v["Api"]["RainbowValue"]}
+			end
+			if v.Type == "LegitModule" then 
+				GuiLibrary.Settings[i] = {["Type"] = "LegitModule", ["Enabled"] = v["Api"]["Enabled"], ["Position"] = {v.Object.Position.X.Scale, v.Object.Position.X.Offset, v.Object.Position.Y.Scale, v.Object.Position.Y.Offset}}
+			end
 		end
+		local mobileButtonSaving = {}
+		for _, mobileButton in pairs(GuiLibrary.MobileButtons) do 
+			table.insert(mobileButtonSaving, {Position = {mobileButton.Position.X.Offset, mobileButton.Position.Y.Offset}, Module = mobileButton.Text.."OptionsButton"})
+		end
+		GuiLibrary.Settings["MobileButtons"] = {["Type"] = "MobileButtons", ["Buttons"] = mobileButtonSaving}
+		WindowTable["GUIKeybind"] = {["Type"] = "GUIKeybind", ["Value"] = GuiLibrary["GUIKeybind"]}
+		writefile(baseDirectory.."Profiles/"..(GuiLibrary.CurrentProfile == "default" and "" or GuiLibrary.CurrentProfile)..(shared.CustomSaveVape or game.PlaceId)..".vapeprofile.txt", httpService:JSONEncode(GuiLibrary.Settings))
+		writefile(baseDirectory.."Profiles/"..(game.GameId).."GUIPositions.vapeprofile.txt", httpService:JSONEncode(WindowTable))
 	end
 
 	GuiLibrary.LoadSettings = function(customprofile)
@@ -662,7 +655,7 @@ if shared.VapeExecuted then
 					if v.Type == "ColorSliderMain" then
 						local valcheck = v["Hue"] ~= nil
 						obj["Api"]["SetValue"](valcheck and v["Hue"] or v["Value"] or 0.44, valcheck or v["Sat"] or 1, valcheck and v["Value"] or 1)
-						obj["Api"]["SetRainbow"](v["RainbowValue"])
+						if v["RainbowValue"] then obj["Api"]["SetRainbow"](v["RainbowValue"]) end
 					end
 					if v.Type == "ColorSliderGUI" then
 						local valcheck = v["Hue"] ~= nil
@@ -672,9 +665,7 @@ if shared.VapeExecuted then
 						else
 							obj["Api"]["SetValue"](valcheck and v["Hue"] and (v["Hue"] / 7) - 0.1 or v["Value"] or 0.44, valcheck and v["Sat"] or 1, valcheck and v["Value"] or 1)
 						end
-						if v["RainbowValue"] then
-							obj["Api"]["SetRainbow"](v["RainbowValue"])
-						end
+						if v["RainbowValue"] then obj["Api"]["SetRainbow"](v["RainbowValue"]) end
 					end
 					if v.Type == "SliderMain" then
 						obj["Api"]["SetValue"](v["Value"])
@@ -684,6 +675,9 @@ if shared.VapeExecuted then
 					end
 				end
 				if v.Type == "GUIKeybind" then
+					if (v.Value ~= "RightShift") then 
+						if shared.VapeButton then shared.VapeButton:Destroy() end
+					end
 					GuiLibrary["GUIKeybind"] = v["Value"]
 				end
 			end
@@ -732,7 +726,7 @@ if shared.VapeExecuted then
 					if v.Type == "ColorSliderMain" then
 						local valcheck = v["Hue"] ~= nil
 						obj["Api"]["SetValue"](valcheck and v["Hue"] or v["Value"] or 0.44, valcheck or v["Sat"] or 1, valcheck and v["Value"] or 1)
-						obj["Api"]["SetRainbow"](v["RainbowValue"])
+						if v["RainbowValue"] then obj["Api"]["SetRainbow"](v["RainbowValue"]) end
 					end
 					if v.Type == "Button" then
 						if obj["Type"] == "Toggle" then
@@ -789,7 +783,7 @@ if shared.VapeExecuted then
 						v["Sat"] = v["Sat"] or 1
 						v["Value"] = v["Value"] or 1
 						obj["Api"]["SetValue"](v["Hue"], v["Sat"], v["Value"])
-						obj["Api"]["SetRainbow"](v["RainbowValue"])
+						if v["RainbowValue"] then obj["Api"]["SetRainbow"](v["RainbowValue"]) end
 						obj.Object.Slider.ButtonSlider.Position = UDim2.new(math.clamp(v["Hue"], 0.02, 0.95), -9, 0, -7)
 						pcall(function()
 							obj["Object2"].Slider.ButtonSlider.Position = UDim2.new(math.clamp(v["Sat"], 0.02, 0.95), -9, 0, -7)
@@ -947,7 +941,7 @@ if shared.VapeExecuted then
 		settingswheel.MouseLeave:Connect(function()
 			settingswheel.ImageColor3 = Color3.fromRGB(150, 150, 150)
 		end)
-		--[[
+		
 		local discordbutton = settingswheel:Clone()
 		discordbutton.Size = UDim2.new(0, 16, 0, 16)
 		discordbutton.ImageColor3 = Color3.new(1, 1, 1)
@@ -1002,7 +996,7 @@ if shared.VapeExecuted then
 				hoverbox3:Remove()
 			end)
 		end)
-		]]--
+		
 		local settingsexit = Instance.new("ImageButton")
 		settingsexit.Name = "SettingsExit"
 		settingsexit.ImageColor3 = Color3.fromRGB(121, 121, 121)
@@ -1680,7 +1674,7 @@ if shared.VapeExecuted then
 						end)
 						kill = inputService.InputEnded:Connect(function(input)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 then
-								capturedslider = {["Type"] = "Slider", ["Object"] = frame, ["Api"] = sliderapi}
+								
 								move:Disconnect()
 								kill:Disconnect()
 							end
@@ -1997,7 +1991,7 @@ if shared.VapeExecuted then
 					end)
 					kill = inputService.InputEnded:Connect(function(input)
 						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							capturedslider = {["Type"] = "ColorSlider", ["Object"] = obj.Parent, ["Api"] = sliderapi}
+							
 							move:Disconnect()
 							kill:Disconnect()
 						end
@@ -2138,7 +2132,7 @@ if shared.VapeExecuted then
 				sliderrainbow.Image = (sliderapi["RainbowValue"] and downloadVapeAsset("VAPEzFORK/assets/RainbowIcon2.png") or downloadVapeAsset("VAPEzFORK/assets/RainbowIcon1.png"))
 				if sliderapi["RainbowValue"] or sliderapi["Custom"] then
 					val = math.clamp(val, min, max)
-					text2.BackgroundColor3 = Color3.fromHSV(hue, sat, val)
+					text2.BackgroundColor3 = Color3.fromHSV(hue, 0.7, 0.9)
 					slider3.ImageColor3 = Color3.new(1, 1, 1)
 					sliderapi["Hue"] = hue	
 					sliderapi["Sat"] = sat
@@ -2177,18 +2171,9 @@ if shared.VapeExecuted then
 				sliderapi["RainbowValue"] = val
 				sliderapi["Custom"] = false
 				if sliderapi["RainbowValue"] then
-					local heh
-					heh = coroutine.resume(coroutine.create(function()
-						repeat
-							task.wait()
-							if sliderapi["RainbowValue"] then
-								sliderapi["SetValue"](universalRainbowValue, 0.7, 0.9)
-							else
-								coroutine.yield(heh)
-							end
-						until sliderapi["RainbowValue"] == false or shared.VapeExecuted == nil
-					end))
+					table.insert(GuiLibrary.RainbowSliders, sliderapi)
 				else
+					table.remove(GuiLibrary.RainbowSliders, table.find(GuiLibrary.RainbowSliders, sliderapi))
 					sliderapi["SetValue"]()
 				end
 			end
@@ -2199,20 +2184,20 @@ if shared.VapeExecuted then
 			slider1.MouseButton1Down:Connect(function()
 				sliderapi["Custom"] = false
 				local x,y,xscale,yscale,xscale2 = RelativeXY(slider1, inputService:GetMouseLocation())
-				sliderapi["SetValue"](min + ((max - min) * xscale), 0.7, 0.9)
+				sliderapi["SetValue"](min + ((max - min) * xscale))
 			--	slider3.Position = UDim2.new(math.clamp(xscale2, 0.02, 0.95), -9, 0, -5)
 				local move
 				local kill
 				move = inputService.InputChanged:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseMovement then
 						local x,y,xscale,yscale,xscale2 = RelativeXY(slider1, inputService:GetMouseLocation())
-						sliderapi["SetValue"](min + ((max - min) * xscale), 0.7, 0.9)
+						sliderapi["SetValue"](min + ((max - min) * xscale))
 					--	slider3.Position = UDim2.new(math.clamp(xscale2, 0.02, 0.95), -9, 0, -5)
 					end
 				end)
 				kill = inputService.InputEnded:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						capturedslider = {["Type"] = "ColorSlider", ["Object"] = frame, ["Api"] = sliderapi}
+						
 						move:Disconnect()
 						kill:Disconnect()
 					end
@@ -2239,7 +2224,7 @@ if shared.VapeExecuted then
 				end)
 				kill = inputService.InputEnded:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						capturedslider = {["Type"] = "ColorSlider", ["Object"] = frame, ["Api"] = sliderapi}
+						
 						move:Disconnect()
 						kill:Disconnect()
 					end
@@ -2698,7 +2683,7 @@ if shared.VapeExecuted then
 				end)
 				kill = inputService.InputEnded:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						capturedslider = {["Type"] = "Slider", ["Object"] = frame, ["Api"] = sliderapi}
+
 						move:Disconnect()
 						kill:Disconnect()
 					end
@@ -3461,17 +3446,9 @@ if shared.VapeExecuted then
 			sliderapi["SetRainbow"] = function(val)
 				sliderapi["RainbowValue"] = val
 				if sliderapi["RainbowValue"] then
-					local heh
-					heh = coroutine.resume(coroutine.create(function()
-						repeat
-							task.wait()
-							if sliderapi["RainbowValue"] then
-								sliderapi["SetValue"](universalRainbowValue)
-							else
-								coroutine.yield(heh)
-							end
-						until sliderapi["RainbowValue"] == false or shared.VapeExecuted == nil
-					end))
+					table.insert(GuiLibrary.RainbowSliders, sliderapi)
+				else
+					table.remove(GuiLibrary.RainbowSliders, table.find(GuiLibrary.RainbowSliders, sliderapi))
 				end
 			end
 			slider1.MouseButton1Down:Connect(function()
@@ -3497,7 +3474,7 @@ if shared.VapeExecuted then
 				end)
 				kill = inputService.InputEnded:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						capturedslider = {["Type"] = "ColorSlider", ["Object"] = frame, ["Api"] = sliderapi}
+						
 						move:Disconnect()
 						kill:Disconnect()
 					end
@@ -3523,7 +3500,7 @@ if shared.VapeExecuted then
 				end)
 				kill = inputService.InputEnded:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						capturedslider = {["Type"] = "ColorSlider", ["Object"] = frame, ["Api"] = sliderapi}
+						
 						move:Disconnect()
 						kill:Disconnect()
 					end
@@ -5322,17 +5299,9 @@ if shared.VapeExecuted then
 				sliderapi["SetRainbow"] = function(val)
 					sliderapi["RainbowValue"] = val
 					if sliderapi["RainbowValue"] then
-						local heh
-						heh = coroutine.resume(coroutine.create(function()
-							repeat
-								task.wait()
-								if sliderapi["RainbowValue"] then
-									sliderapi["SetValue"](universalRainbowValue)
-								else
-									coroutine.yield(heh)
-								end
-							until sliderapi["RainbowValue"] == false or shared.VapeExecuted == nil
-						end))
+						table.insert(GuiLibrary.RainbowSliders, sliderapi)
+					else
+						table.remove(GuiLibrary.RainbowSliders, table.find(GuiLibrary.RainbowSliders, sliderapi))
 					end
 				end
 				local clicktick = tick()
@@ -5355,7 +5324,7 @@ if shared.VapeExecuted then
 					end)
 					kill = inputService.InputEnded:Connect(function(input)
 						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							capturedslider = {["Type"] = "ColorSlider", ["Object"] = obj.Parent, ["Api"] = sliderapi}
+							
 							move:Disconnect()
 							kill:Disconnect()
 						end
@@ -6217,17 +6186,9 @@ if shared.VapeExecuted then
 			sliderapi["SetRainbow"] = function(val)
 				sliderapi["RainbowValue"] = val
 				if sliderapi["RainbowValue"] then
-					local heh
-					heh = coroutine.resume(coroutine.create(function()
-						repeat
-							task.wait()
-							if sliderapi["RainbowValue"] then
-								sliderapi["SetValue"](universalRainbowValue)
-							else
-								coroutine.yield(heh)
-							end
-						until sliderapi["RainbowValue"] == false or shared.VapeExecuted == nil
-					end))
+					table.insert(GuiLibrary.RainbowSliders, sliderapi)
+				else
+					table.remove(GuiLibrary.RainbowSliders, table.find(GuiLibrary.RainbowSliders, sliderapi))
 				end
 			end
 			local clicktick = tick()
@@ -6250,7 +6211,7 @@ if shared.VapeExecuted then
 				end)
 				kill = inputService.InputEnded:Connect(function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						capturedslider = {["Type"] = "ColorSlider", ["Object"] = obj.Parent, ["Api"] = sliderapi}
+						
 						move:Disconnect()
 						kill:Disconnect()
 					end
@@ -6946,8 +6907,8 @@ if shared.VapeExecuted then
 		if enabled then
 			--no cache but its ran 1 time so idc
 			local bad = not (inputService:GetPlatform() == Enum.Platform.Windows or inputService:GetPlatform() == Enum.Platform.OSX)
-			GuiLibrary.CreateNotification("VAPEzFORK EXTRENAL LOADED!", bad and "Press the button in the top right to open GUI" or "Press "..string.upper(GuiLibrary["GUIKeybind"]).." to open GUI", 5)
-			wait(5.5)
+			GuiLibrary.CreateNotification("VAPEzFORK Loaded!", bad and GuiLibrary["GUIKeybind"] == "RightShift" and "Press the button in the top right to open GUI" or "Press "..string.upper(GuiLibrary["GUIKeybind"]).." to open GUI", 5)
+			wait(5)
 			GuiLibrary.CreateNotification("by mikusdev", bad and "This version of vape is edited by mikusdev", 3)
 		end
 	end
@@ -6982,6 +6943,7 @@ if shared.VapeExecuted then
 				end
 			end
 		end)
+		shared.VapeButton = button
 	end
 
 	GuiLibrary["KeyInputHandler"] = inputService.InputBegan:Connect(function(input1)
